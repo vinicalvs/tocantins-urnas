@@ -1,0 +1,4 @@
+dados_brutos/
+base/
+__pycache__/
+.pytest_cache/

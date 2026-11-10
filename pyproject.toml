@@ -1,0 +1,12 @@
+[project]
+name = "tocantins-urnas"
+version = "0.1.0"
+description = "Dados de urnas do Tocantins (TSE): download, validacao e site estatico"
+requires-python = ">=3.12"
+
+[tool.setuptools]
+packages = ["tocantins"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
