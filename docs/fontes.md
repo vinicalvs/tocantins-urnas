@@ -317,3 +317,46 @@ Campos usados: candidato `n`, `nmu`, `vap` (votos apurados), `dvt` (destinacao),
 apurada, comparavel ao BU) e `tvtl` (legenda valida: zera em partido anulado e soma nominais convertidos para a
 legenda); `v.vb` brancos, `v.vn` nulos, `v.vnt` nulos tecnicos (= nominais em numeros fora da lista oficial +
 legenda de partido fora da lista). Cache em `dados_brutos/oficial/` (`scripts/conferir_oficial.py`).
+
+## 6. Censo 2022 por setor e indicadores municipais (IBGE)
+
+Conferido em 10/11/2026 (listagem do FTP e requisição HEAD).
+
+| Chave | URL | Tamanho | Data no servidor |
+|---|---|---|---|
+| censo_malha_to | `https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/malha_com_atributos/setores/gpkg/UF/TO/TO_setores_CD2022.gpkg` | 75.874.304 | 13/11/2024 |
+| censo_basico | `…/Agregados_por_Setor_csv/Agregados_por_setores_basico_BR_20260520.zip` | 15.418.417 | 20/05/2026 |
+| censo_demografia | `…/Agregados_por_Setor_csv/Agregados_por_setores_demografia_BR.zip` | 22.554.090 | 12/11/2024 |
+| censo_alfabetizacao | `…/Agregados_por_Setor_csv/Agregados_por_setores_alfabetizacao_BR.zip` | 142.133.036 | 12/11/2024 |
+| censo_cor_raca | `…/Agregados_por_Setor_csv/Agregados_por_setores_cor_ou_raca_BR.zip` | 43.838.759 | 12/11/2024 |
+| censo_domicilio2 | `…/Agregados_por_Setor_csv/Agregados_por_setores_caracteristicas_domicilio2_BR_20250417.zip` | 83.971.374 | 17/04/2025 |
+| sidra_pop_area | `https://apisidra.ibge.gov.br/values/t/4714/n6/in%20n3%2017/v/93,6318,614/p/2022` | — | tabela 4714 |
+| sidra_pib | `https://apisidra.ibge.gov.br/values/t/5938/n6/in%20n3%2017/v/37/p/2022` | — | tabela 5938 |
+
+(`…` = `https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios`)
+
+- **Renda por setor:** o diretório `Agregados_por_Setor_csv/` não tem arquivo de renda (listagem de 10/11/2026).
+  O indicador fica fora (spec, risco 4).
+- **SIDRA 4714:** 3 linhas por município (variáveis 93 população, 6318 área km², 614 densidade), 417 linhas + cabeçalho.
+  A primeira linha da resposta é o cabeçalho; `V` é o valor e `D1C` o código IBGE de 7 dígitos.
+- **SIDRA 5938:** não publica PIB per capita. Usamos PIB 2022 (variável 37, mil reais) ÷ população do Censo 2022,
+  mesmo ano de referência; o site mostra "PIB per capita 2022 (PIB ÷ população do Censo)".
+- Os códigos das variáveis de cada agregado por setor estão na subseção 6.1 (preenchida na normalização).
+
+### 6.1 Variáveis usadas (dicionário do IBGE `dicionario_de_dados_agregados_por_setores_censitarios_20260520.xlsx`)
+
+| Indicador | Numerador | Denominador | Arquivo |
+|---|---|---|---|
+| moradores | V0001 (total de pessoas) | — | básico |
+| domicilios | V0007 (domicílios particulares ocupados) | — | básico |
+| alfabetizacao_15 | V00748…V00760 (alfabetizadas 15+, por idade) | V00644…V00656 (pessoas 15+, por idade) | alfabetização |
+| idade_0_14 | V01031+V01032+V01033 | V01006 (moradores) | demografia |
+| idade_15_29 | V01034+V01035+V01036 | V01006 | demografia |
+| idade_60 | V01040+V01041 | V01006 | demografia |
+| pretos_pardos | V01318 (preta) + V01320 (parda) | V01317…V01321 | cor ou raça |
+| agua_rede | V00111 (rede geral) | V00111…V00118 | domicílio 2 |
+| esgoto_rede | V00309+V00310 (rede geral ou pluvial) | V00309…V00316 | domicílio 2 |
+| lixo_coletado | V00397+V00398 (coletado ou caçamba) | V00397…V00402 | domicílio 2 |
+| area_km2, densidade | `AREA_KM2` da malha; moradores ÷ área | — | malha |
+
+Valor `X` (sigilo de setor pequeno) e vazio viram `NaN`; o setor fica com `sigilo=True`.

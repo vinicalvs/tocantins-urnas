@@ -58,6 +58,30 @@ def _build() -> dict[str, Source]:
         Source("ibge_malha", _ibge + "v3/malhas/estados/17?intrarregiao=municipio"
                "&formato=application/vnd.geo+json&qualidade=minima", None, "ibge/malha_to.geojson"),
     ]
+    # Censo 2022 por setor (IBGE, arquivos nacionais; sem .sha512) e malha de setores do TO.
+    _cs = "https://ftp.ibge.gov.br/Censos/Censo_Demografico_2022/Agregados_por_Setores_Censitarios/"
+    _set = _cs + "Agregados_por_Setor_csv/"
+    sources += [
+        Source("censo_malha_to", _cs + "malha_com_atributos/setores/gpkg/UF/TO/TO_setores_CD2022.gpkg", None,
+               "censo/TO_setores_CD2022.gpkg"),
+        Source("censo_basico", _set + "Agregados_por_setores_basico_BR_20260520.zip", None,
+               "censo/Agregados_por_setores_basico_BR_20260520.zip"),
+        Source("censo_demografia", _set + "Agregados_por_setores_demografia_BR.zip", None,
+               "censo/Agregados_por_setores_demografia_BR.zip"),
+        Source("censo_alfabetizacao", _set + "Agregados_por_setores_alfabetizacao_BR.zip", None,
+               "censo/Agregados_por_setores_alfabetizacao_BR.zip"),
+        Source("censo_cor_raca", _set + "Agregados_por_setores_cor_ou_raca_BR.zip", None,
+               "censo/Agregados_por_setores_cor_ou_raca_BR.zip"),
+        Source("censo_domicilio2", _set + "Agregados_por_setores_caracteristicas_domicilio2_BR_20250417.zip", None,
+               "censo/Agregados_por_setores_caracteristicas_domicilio2_BR_20250417.zip"),
+    ]
+    # SIDRA: populacao/area/densidade do Censo 2022 (tabela 4714) e PIB municipal 2022 (tabela 5938, var. 37).
+    _sidra = "https://apisidra.ibge.gov.br/values/"
+    sources += [
+        Source("sidra_pop_area", _sidra + "t/4714/n6/in%20n3%2017/v/93,6318,614/p/2022", None,
+               "sidra/4714_pop_area_2022.json"),
+        Source("sidra_pib", _sidra + "t/5938/n6/in%20n3%2017/v/37/p/2022", None, "sidra/5938_pib_2022.json"),
+    ]
     return {s.key: s for s in sources}
 
 
