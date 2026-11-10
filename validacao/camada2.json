@@ -1,0 +1,41 @@
+{
+  "layer": "2",
+  "passed": true,
+  "checks": [
+    {
+      "check": "votos_eq_comparecimento",
+      "passed": true,
+      "n_checked": 39659,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "comparecimento_mais_abst_eq_aptos",
+      "passed": true,
+      "n_checked": 39659,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "secoes_bu_eq_locais",
+      "passed": true,
+      "n_checked": 13945,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "urnas_nao_apuradas",
+      "passed": true,
+      "n_checked": 39659,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "impl_disagreement",
+      "passed": true,
+      "n_checked": 4,
+      "n_divergences": 0,
+      "unregistered": 0
+    }
+  ]
+}
