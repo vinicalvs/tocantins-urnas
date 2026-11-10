@@ -1,0 +1,72 @@
+[
+  {
+    "layer": "1",
+    "check": "exclusoes_registradas",
+    "key": {
+      "source": "locais",
+      "reason": "SG_UF diferente de TO"
+    },
+    "cause": "Escopo da spec (secao 2): so o Tocantins; o arquivo do TSE e nacional e as linhas de outras UFs ficam fora da base.",
+    "approved_on": "2026-11-10"
+  },
+  {
+    "layer": "1",
+    "check": "exclusoes_registradas",
+    "key": {
+      "source": "munzona",
+      "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+    },
+    "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+    "approved_on": "2026-11-10"
+  },
+  {
+    "layer": "1",
+    "check": "exclusoes_registradas",
+    "key": {
+      "source": "munzona",
+      "reason": "SG_UF diferente de TO"
+    },
+    "cause": "Escopo da spec (secao 2): so o Tocantins; o arquivo do TSE e nacional e as linhas de outras UFs ficam fora da base.",
+    "approved_on": "2026-11-10"
+  },
+  {
+    "layer": "1",
+    "check": "exclusoes_registradas",
+    "key": {
+      "source": "detalhe_munzona",
+      "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+    },
+    "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+    "approved_on": "2026-11-10"
+  },
+  {
+    "layer": "1",
+    "check": "exclusoes_registradas",
+    "key": {
+      "source": "detalhe_munzona",
+      "reason": "SG_UF diferente de TO"
+    },
+    "cause": "Escopo da spec (secao 2): so o Tocantins; o arquivo do TSE e nacional e as linhas de outras UFs ficam fora da base.",
+    "approved_on": "2026-11-10"
+  },
+  {
+    "layer": "1",
+    "check": "exclusoes_registradas",
+    "key": {
+      "source": "votacao_secao",
+      "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+    },
+    "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+    "approved_on": "2026-11-10"
+  },
+  {
+    "layer": "1",
+    "check": "exclusoes_registradas",
+    "key": {
+      "source": "candidatos",
+      "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+    },
+    "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+    "approved_on": "2026-11-10"
+  }
+]

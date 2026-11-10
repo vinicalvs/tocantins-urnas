@@ -1,0 +1,48 @@
+{
+  "layer": "1",
+  "passed": true,
+  "checks": [
+    {
+      "check": "hash_manifest",
+      "passed": true,
+      "n_checked": 16,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "row_counts",
+      "passed": true,
+      "n_checked": 4,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "municipios_139",
+      "passed": true,
+      "n_checked": 10,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "no_duplicates",
+      "passed": true,
+      "n_checked": 733076,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "t2_subset_of_t1",
+      "passed": true,
+      "n_checked": 139,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "exclusoes_registradas",
+      "passed": true,
+      "n_checked": 7,
+      "n_divergences": 7,
+      "unregistered": 0
+    }
+  ]
+}
