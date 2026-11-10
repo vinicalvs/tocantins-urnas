@@ -360,3 +360,13 @@ Conferido em 10/11/2026 (listagem do FTP e requisição HEAD).
 | area_km2, densidade | `AREA_KM2` da malha; moradores ÷ área | — | malha |
 
 Valor `X` (sigilo de setor pequeno) e vazio viram `NaN`; o setor fica com `sigilo=True`.
+
+### 6.2 Coligações e federações (consulta_cand)
+
+- `DS_COMPOSICAO_COLIGACAO`: siglas separadas por ` / `; federações aparecem como
+  `FEDERAÇÃO <NOME> (<nr>-<sigla> / <nr>-<sigla>)`. Ex.: `MDB / FEDERAÇÃO PSDB CIDADANIA (45-PSDB / 23-CIDADANIA)`.
+- `DS_COMPOSICAO_FEDERACAO`: `44-UNIÃO/11-PP`; `#NULO` quando o partido não é federado.
+- Cada candidatura aparece uma vez por turno; Governador 35 tem duas linhas (substituição de candidato).
+- `DS_SITUACAO_CANDIDATURA` vem `#NE` em todas as linhas de 2026: não há como filtrar "aptas".
+- A coligação de Senador pode ser menor que a de Governador do mesmo partido (ex.: GAGUIM 444 = só a federação
+  UNIÃO/PP); por isso a ligação prefeito → candidato é feita por cargo.

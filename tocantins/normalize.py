@@ -438,7 +438,11 @@ def normalize_candidatos(csv_files: list[Path], out: Path) -> int:
         {_clean('NM_URNA_CANDIDATO')}           AS nm_urna,
         {_clean('SG_PARTIDO')}                  AS sg_partido,
         {_clean('DS_SITUACAO_CANDIDATURA')}     AS situacao,
-        {_clean('DS_SIT_TOT_TURNO')}            AS situacao_turno
+        {_clean('DS_SIT_TOT_TURNO')}            AS situacao_turno,
+        {_clean('SG_FEDERACAO')}                AS sg_federacao,
+        {_clean('DS_COMPOSICAO_FEDERACAO')}     AS composicao_federacao,
+        {_clean('NM_COLIGACAO')}                AS nm_coligacao,
+        {_clean('DS_COMPOSICAO_COLIGACAO')}     AS composicao_coligacao
     """
     return _normalize_aux(
         csv_files, out, source="candidatos", ano_col="ANO_ELEICAO", select=select, uf_scope=_UF_TO_CAND,

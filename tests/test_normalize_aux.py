@@ -237,7 +237,8 @@ def test_candidatos_schema_null_tokens_and_BR_presidente(tmp_path):
     c = cols(out)
     assert list(c) == [
         "ano", "turno", "cargo", "cd_municipio", "nr_candidato", "sq_candidato", "nm_urna",
-        "sg_partido", "situacao", "situacao_turno",
+        "sg_partido", "situacao", "situacao_turno", "sg_federacao", "composicao_federacao", "nm_coligacao",
+        "composicao_coligacao",
     ]
     assert c["cd_municipio"] == "VARCHAR" and c["sq_candidato"] == "BIGINT"
     got = q(out, "select ano, cargo, cd_municipio, nr_candidato, situacao, situacao_turno from {p} order by 1, 4")
@@ -337,3 +338,14 @@ def test_normalize_bu_rerun_does_not_erase_other_sources(bu_csv, tmp_path):
     record_exclusoes(exc, "munzona", [{"source": "munzona", "reason": "r", "n_rows": 2}])
     normalize_bu([bu_csv], out)
     assert json.loads(exc.read_text(encoding="utf-8")) == [{"source": "munzona", "reason": "r", "n_rows": 2}]
+
+
+def test_normalize_candidatos_keeps_coalition_columns(tmp_path):
+    csv = write_csv_rows(tmp_path / "c.csv", CAND_HEADER, [
+        cand_row(ANO_ELEICAO="2026", CD_ELEICAO="6259", SG_UE="TO", CD_CARGO="3", DS_CARGO="GOVERNADOR",
+                 SG_FEDERACAO="#NULO", DS_COMPOSICAO_FEDERACAO="#NULO", NM_COLIGACAO="PRA FRENTE",
+                 DS_COMPOSICAO_COLIGACAO="PDT / FEDERAÇÃO X (13-PT / 43-PV)", NR_CANDIDATO="55")])
+    out = tmp_path / "base" / "candidatos.parquet"
+    normalize_candidatos([csv], out)
+    got = q(out, "select sg_federacao, composicao_federacao, nm_coligacao, composicao_coligacao from {p}")
+    assert got == [(None, None, "PRA FRENTE", "PDT / FEDERAÇÃO X (13-PT / 43-PV)")]
