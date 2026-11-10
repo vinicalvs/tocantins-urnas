@@ -10,8 +10,8 @@ Data: 10/11/2026 · branch `feat/tocantins-urnas` · commit da verificação: 9f
 | Validação em 4 camadas + controle Palmas | **selo ok** (todas as camadas verdes; divergências com causa registrada) |
 | Exportação `site_dados/` | 139 municípios, 564 arquivos, 6,6 MB |
 | Site (5 telas) | renderiza sem erro |
-| Aprovação das 206 exceções pelo usuário | **pendente** |
-| Publicação | **pendente** (aguarda escolha de hospedagem e confirmação do usuário) |
+| Aprovação das 206 exceções pelo usuário | aprovadas pelo usuário em 10/11/2026 |
+| Publicação | https://vinicalvs.github.io/tocantins-urnas/ (GitHub Pages, repositório vinicalvs/tocantins-urnas) |
 
 ## Critérios da spec
 
@@ -61,7 +61,7 @@ municipios=139 arquivos=564 total=6.6 MB maior=estado/2024_vereador_t1.json (0.7
 - `python -m pytest -v`: 140 passed.
 - `node --test site/tests/*.test.js`: 30 passed.
 
-## Exceções (`validacao/excecoes.json`) — aguardam aprovação do usuário
+## Exceções (`validacao/excecoes.json`) — aprovadas pelo usuário
 
 | Camada · teste | Casos | Causa |
 |---|---|---|
@@ -70,8 +70,14 @@ municipios=139 arquivos=564 total=6.6 MB maior=estado/2024_vereador_t1.json (0.7
 | 3 · bu_vs_munzona_nominal | 197 | Nulos técnicos: voto nominal no BU para candidatura indeferida/cancelada, ausente do munzona; a soma por zona bate exatamente com `QT_VOTOS_NULOS_TECNICOS` do detalhe. |
 | 3 · cobertura_fontes | 2 | `votacao_secao` do TSE não traz Presidente; Presidente por seção vem só do BU. |
 
-As entradas foram geradas por script (`scripts/excecoes_camada3.py`) e registradas pelo executor. A publicação só
-acontece depois que o usuário revisar e aceitar essas causas.
+As entradas foram geradas por script (`scripts/excecoes_camada3.py`) e registradas pelo executor; o usuário
+aceitou as causas em 10/11/2026, antes da publicação.
+
+## Publicação conferida
+
+Site no ar em https://vinicalvs.github.io/tocantins-urnas/: página raiz, `site/`, `site_dados/index.json`,
+arquivo de Palmas, selo, `site_dados/validacao/excecoes.json` e malha respondem 200; Palmas, Oliveira de Fátima
+(menor eleitorado) e o Selo renderizam sem erro.
 
 ## Limitações conhecidas
 
