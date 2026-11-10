@@ -1,0 +1,198 @@
+ano,turno,cargo,cd_municipio,zona,nr_votavel,votos_bu,votos_ref
+2024,1,Prefeito,73407,5,40,2,0
+2024,1,Prefeito,92681,20,20,2,0
+2024,1,Vereador,73180,11,11333,1,0
+2024,1,Vereador,73199,6,43222,2,0
+2024,1,Vereador,73199,6,43333,2,0
+2024,1,Vereador,73270,26,45666,1,0
+2024,1,Vereador,73350,34,12333,1,0
+2024,1,Vereador,73385,13,11110,1,0
+2024,1,Vereador,73385,13,22555,1,0
+2024,1,Vereador,73385,13,44444,1,0
+2024,1,Vereador,73407,5,10777,2,0
+2024,1,Vereador,73440,29,40122,105,0
+2024,1,Vereador,73440,29,55010,1,0
+2024,1,Vereador,73440,29,55037,1,0
+2024,1,Vereador,73440,29,55600,5,0
+2024,1,Vereador,92410,1,11777,6,0
+2024,1,Vereador,92410,1,13456,4,0
+2024,1,Vereador,92410,1,55123,8,0
+2024,1,Vereador,92410,34,11777,1,0
+2024,1,Vereador,92410,34,13456,1,0
+2024,1,Vereador,92410,34,55123,2,0
+2024,1,Vereador,92479,22,65234,7,0
+2024,1,Vereador,92525,21,44555,1,0
+2024,1,Vereador,92541,21,25555,30,0
+2024,1,Vereador,92681,20,12333,1,0
+2024,1,Vereador,93416,25,15699,190,0
+2024,1,Vereador,94633,28,11112,4,0
+2024,1,Vereador,94633,28,22111,52,0
+2024,1,Vereador,95290,16,45555,2,0
+2026,1,Deputado Estadual,73024,27,22777,1,0
+2026,1,Deputado Estadual,73059,11,22777,1,0
+2026,1,Deputado Estadual,73067,10,22777,3,0
+2026,1,Deputado Estadual,73075,9,22777,1,0
+2026,1,Deputado Estadual,73083,8,55666,1,0
+2026,1,Deputado Estadual,73091,32,22777,3,0
+2026,1,Deputado Estadual,73105,35,22777,1,0
+2026,1,Deputado Estadual,73180,11,22777,1,0
+2026,1,Deputado Estadual,73296,10,22777,4,0
+2026,1,Deputado Estadual,73440,29,22777,11,0
+2026,1,Deputado Estadual,73440,29,55666,1,0
+2026,1,Deputado Estadual,73512,9,22777,1,0
+2026,1,Deputado Estadual,92193,12,22777,2,0
+2026,1,Deputado Estadual,92410,1,22777,9,0
+2026,1,Deputado Estadual,92410,1,55666,1,0
+2026,1,Deputado Estadual,92436,10,22777,6,0
+2026,1,Deputado Estadual,92479,22,22777,1,0
+2026,1,Deputado Estadual,92576,11,22777,2,0
+2026,1,Deputado Estadual,92584,19,22777,1,0
+2026,1,Deputado Estadual,93114,4,22777,1,0
+2026,1,Deputado Estadual,93130,22,22777,1,0
+2026,1,Deputado Estadual,93459,28,22777,1,0
+2026,1,Deputado Estadual,93459,28,55666,1,0
+2026,1,Deputado Estadual,93556,8,22777,2,0
+2026,1,Deputado Estadual,94617,5,22777,12,0
+2026,1,Deputado Estadual,94633,28,22777,4,0
+2026,1,Deputado Estadual,94692,3,22777,1,0
+2026,1,Deputado Estadual,94994,35,22777,1,0
+2026,1,Deputado Estadual,95214,18,22777,1,0
+2026,1,Deputado Estadual,95290,16,22777,1,0
+2026,1,Deputado Estadual,95338,32,22777,2,0
+2026,1,Deputado Estadual,95338,32,55666,1,0
+2026,1,Deputado Estadual,95370,26,22777,1,0
+2026,1,Deputado Estadual,96130,11,22777,2,0
+2026,1,Deputado Estadual,96270,6,22777,5,0
+2026,1,Deputado Estadual,96431,12,22777,1,0
+2026,1,Deputado Estadual,96598,3,22777,1,0
+2026,1,Deputado Estadual,96857,21,22777,2,0
+2026,1,Deputado Estadual,96997,28,22777,2,0
+2026,1,Deputado Federal,73156,14,4045,1,0
+2026,1,Deputado Federal,73296,10,2777,2,0
+2026,1,Deputado Federal,73440,29,2777,2,0
+2026,1,Deputado Federal,73440,29,4045,3,0
+2026,1,Deputado Federal,73512,9,2777,1,0
+2026,1,Deputado Federal,92070,19,4045,1,0
+2026,1,Deputado Federal,92410,1,2777,3,0
+2026,1,Deputado Federal,92410,1,4045,1,0
+2026,1,Deputado Federal,92410,34,2777,2,0
+2026,1,Deputado Federal,92452,31,2777,1,0
+2026,1,Deputado Federal,92541,21,4045,1,0
+2026,1,Deputado Federal,93114,4,2777,1,0
+2026,1,Deputado Federal,93858,2,2777,1,0
+2026,1,Deputado Federal,95192,7,4045,1,0
+2026,1,Deputado Federal,96270,6,2777,1,0
+2026,1,Deputado Federal,96997,28,2777,1,0
+2026,1,Governador,73008,7,35,4,0
+2026,1,Governador,73016,27,35,5,0
+2026,1,Governador,73024,27,35,3,0
+2026,1,Governador,73032,27,35,2,0
+2026,1,Governador,73040,27,35,2,0
+2026,1,Governador,73083,8,35,3,0
+2026,1,Governador,73091,32,35,1,0
+2026,1,Governador,73105,35,35,1,0
+2026,1,Governador,73121,23,35,2,0
+2026,1,Governador,73180,11,35,5,0
+2026,1,Governador,73199,6,35,2,0
+2026,1,Governador,73245,4,35,1,0
+2026,1,Governador,73253,4,35,1,0
+2026,1,Governador,73261,31,35,2,0
+2026,1,Governador,73270,26,35,1,0
+2026,1,Governador,73288,10,35,3,0
+2026,1,Governador,73296,10,35,3,0
+2026,1,Governador,73300,2,35,1,0
+2026,1,Governador,73326,34,35,2,0
+2026,1,Governador,73334,34,35,1,0
+2026,1,Governador,73342,34,35,1,0
+2026,1,Governador,73350,34,35,1,0
+2026,1,Governador,73369,20,35,1,0
+2026,1,Governador,73377,20,35,1,0
+2026,1,Governador,73385,13,35,8,0
+2026,1,Governador,73393,18,35,1,0
+2026,1,Governador,73407,5,35,2,0
+2026,1,Governador,73423,21,35,2,0
+2026,1,Governador,73440,29,35,370,0
+2026,1,Governador,73482,19,35,1,0
+2026,1,Governador,73504,14,35,5,0
+2026,1,Governador,73512,9,35,2,0
+2026,1,Governador,73539,9,35,1,0
+2026,1,Governador,73580,31,35,1,0
+2026,1,Governador,73598,3,35,1,0
+2026,1,Governador,92070,19,35,2,0
+2026,1,Governador,92088,28,35,1,0
+2026,1,Governador,92134,14,35,4,0
+2026,1,Governador,92142,22,35,3,0
+2026,1,Governador,92185,7,35,3,0
+2026,1,Governador,92193,12,35,2,0
+2026,1,Governador,92240,16,35,1,0
+2026,1,Governador,92304,7,35,1,0
+2026,1,Governador,92371,28,35,1,0
+2026,1,Governador,92398,14,35,4,0
+2026,1,Governador,92410,1,35,218,0
+2026,1,Governador,92410,34,35,20,0
+2026,1,Governador,92436,10,35,8,0
+2026,1,Governador,92452,31,35,3,0
+2026,1,Governador,92479,22,35,2,0
+2026,1,Governador,92533,17,35,1,0
+2026,1,Governador,92541,21,35,3,0
+2026,1,Governador,92576,11,35,3,0
+2026,1,Governador,92592,8,35,3,0
+2026,1,Governador,92606,35,35,1,0
+2026,1,Governador,92681,20,35,2,0
+2026,1,Governador,93114,4,35,34,0
+2026,1,Governador,93211,16,35,3,0
+2026,1,Governador,93238,13,35,3,0
+2026,1,Governador,93416,25,35,7,0
+2026,1,Governador,93475,15,35,2,0
+2026,1,Governador,93556,8,35,2,0
+2026,1,Governador,93653,15,35,6,0
+2026,1,Governador,93858,2,35,57,0
+2026,1,Governador,94099,11,35,1,0
+2026,1,Governador,94617,5,35,10,0
+2026,1,Governador,94633,28,35,4,0
+2026,1,Governador,94692,3,35,2,0
+2026,1,Governador,94811,19,35,3,0
+2026,1,Governador,94838,9,35,1,0
+2026,1,Governador,94994,35,35,1,0
+2026,1,Governador,95192,7,35,41,0
+2026,1,Governador,95214,18,35,1,0
+2026,1,Governador,95257,23,35,3,0
+2026,1,Governador,95273,20,35,3,0
+2026,1,Governador,95338,32,35,2,0
+2026,1,Governador,95532,26,35,3,0
+2026,1,Governador,95591,3,35,44,0
+2026,1,Governador,96032,21,35,2,0
+2026,1,Governador,96130,11,35,4,0
+2026,1,Governador,96156,17,35,8,0
+2026,1,Governador,96199,5,35,3,0
+2026,1,Governador,96210,9,35,8,0
+2026,1,Governador,96270,6,35,5,0
+2026,1,Governador,96431,12,35,3,0
+2026,1,Governador,96490,18,35,2,0
+2026,1,Governador,96598,3,35,2,0
+2026,1,Governador,96636,31,35,8,0
+2026,1,Governador,96652,27,35,5,0
+2026,1,Governador,96679,14,35,5,0
+2026,1,Governador,96857,21,35,6,0
+2026,1,Governador,96970,35,35,1,0
+2026,1,Governador,96997,28,35,3,0
+2026,1,Presidente,73318,12,28,1,0
+2026,1,Presidente,73385,13,28,1,0
+2026,1,Presidente,73407,5,28,2,0
+2026,1,Presidente,73440,29,28,4,0
+2026,1,Presidente,92304,7,28,1,0
+2026,1,Presidente,92371,28,28,1,0
+2026,1,Presidente,92398,14,28,1,0
+2026,1,Presidente,92410,1,28,2,0
+2026,1,Presidente,92410,34,28,1,0
+2026,1,Presidente,93114,4,28,1,0
+2026,1,Presidente,93858,2,28,1,0
+2026,1,Presidente,95273,20,28,1,0
+2026,1,Presidente,95370,26,28,1,0
+2026,1,Presidente,95478,13,28,1,0
+2026,1,Presidente,96156,17,28,1,0
+2026,1,Presidente,96210,9,28,1,0
+2026,1,Presidente,96270,6,28,4,0
+2026,1,Presidente,96431,12,28,1,0
+2026,1,Presidente,96679,14,28,1,0
+2026,1,Presidente,96857,21,28,1,0

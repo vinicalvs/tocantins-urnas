@@ -1,0 +1,41 @@
+{
+  "layer": "3",
+  "passed": true,
+  "checks": [
+    {
+      "check": "bu_vs_munzona_nominal",
+      "passed": true,
+      "n_checked": 50625,
+      "n_divergences": 197,
+      "unregistered": 0
+    },
+    {
+      "check": "bu_vs_votacao_secao",
+      "passed": true,
+      "n_checked": 686283,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "bu_vs_detalhe",
+      "passed": true,
+      "n_checked": 1261,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "cobertura_fontes",
+      "passed": true,
+      "n_checked": 30,
+      "n_divergences": 2,
+      "unregistered": 0
+    },
+    {
+      "check": "impl_disagreement",
+      "passed": true,
+      "n_checked": 4,
+      "n_divergences": 0,
+      "unregistered": 0
+    }
+  ]
+}
