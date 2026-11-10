@@ -1,15 +1,15 @@
 # Relatório final de validação — Tocantins nas urnas
 
-Data: 10/11/2026 · branch `feat/tocantins-urnas` · commit da verificação: 9f0ec8c
+Data: 10/11/2026 · branch `feat/conjuntura` (Conjuntura e Censo 2022)
 
 ## Situação
 
 | Item | Situação |
 |---|---|
 | Base (BU 2024 e 2026, 139 municípios) | pronta |
-| Validação em 4 camadas + controle Palmas | **selo ok** (todas as camadas verdes; divergências com causa registrada) |
-| Exportação `site_dados/` | 139 municípios, 564 arquivos, 6,6 MB |
-| Site (5 telas) | renderiza sem erro |
+| Validação em 5 camadas + controles de Palmas (votos e população) | **selo ok** (todas as camadas verdes; divergências com causa registrada) |
+| Exportação `site_dados/` | 139 municípios, 1.270 arquivos, 14,1 MB |
+| Site (Estado, Município com ficha do local, Candidato, Conjuntura em 3 abas, Selo) | renderiza sem erro |
 | Aprovação das 206 exceções pelo usuário | aprovadas pelo usuário em 10/11/2026 |
 | Publicação | https://vinicalvs.github.io/tocantins-urnas/ (GitHub Pages, repositório vinicalvs/tocantins-urnas) |
 
@@ -25,7 +25,7 @@ Data: 10/11/2026 · branch `feat/tocantins-urnas` · commit da verificação: 9f
 ## Saída da validação (`python -I scripts/03_validar.py`)
 
 ```
-camada 1         hash_manifest                        ok      verificados=18 divergencias=0 sem_registro=0
+camada 1         hash_manifest                        ok      verificados=26 divergencias=0 sem_registro=0
 camada 1         row_counts                           ok      verificados=4 divergencias=0 sem_registro=0
 camada 1         municipios_139                       ok      verificados=10 divergencias=0 sem_registro=0
 camada 1         no_duplicates                        ok      verificados=733076 divergencias=0 sem_registro=0
@@ -42,24 +42,43 @@ camada 3         bu_vs_detalhe                        ok      verificados=1261 d
 camada 3         cobertura_fontes                     ok      verificados=30 divergencias=2 sem_registro=0
 camada 3         impl_disagreement                    ok      verificados=4 divergencias=0 sem_registro=0
 camada 4         prefeito_winners                     ok      verificados=140 divergencias=0 sem_registro=0
-camada 4         visual_amostra                       ok      verificados=11840 divergencias=0 sem_registro=0
+camada 4         visual_amostra                       ok      verificados=12170 divergencias=0 sem_registro=0
 camada controle  palmas_turno1                        ok      verificados=171501 divergencias=0 sem_registro=0
+camada 5         setores_integridade                  ok      verificados=4117 divergencias=0 sem_registro=0
+camada 5         fechamento_municipio                 ok      verificados=139 divergencias=0 sem_registro=0
+camada 5         ligacao_impl_disagreement            ok      verificados=8234 divergencias=0 sem_registro=0
+camada 5         ligacao_consistencia                 ok      verificados=8234 divergencias=0 sem_registro=0
+camada 5         ligacao_credibilidade                ok      verificados=1829 divergencias=0 sem_registro=0
+camada 5         coligacoes_prefeitos                 ok      verificados=139 divergencias=0 sem_registro=0
+camada controle  palmas_censo                         ok      verificados=1 divergencias=0 sem_registro=0
 selo: ok  excecoes usadas=206 nao usadas=0  fora do controle=['2024 turno 2', '2026 turno 2']
 ```
 
 A camada 4 recalcula, a cada validação, a comparação da base atual com o resultado oficial publicado em
-resultados.tse.jus.br (JSON em cache em `dados_brutos/oficial/`): 11.840 linhas, 0 diferenças.
+resultados.tse.jus.br (JSON em cache em `dados_brutos/oficial/`): 12.170 linhas, 0 diferenças, agora com
+Governador (turnos 1 e 2) e Senador 2026 (arquivo estadual + amostra de 10 municípios).
+
+## Camada 5 — Censo 2022 e ligações
+
+- 4.117 setores (a malha tem 4.119 polígonos: 2 setores partidos em dois) nos 139 municípios, sem código duplicado.
+- Fechamento: moradores dos setores = população do Censo 2022 (SIDRA) nos 139 municípios; total 1.511.460; 0 diferenças.
+- Ligação setor → local mais próximo do mesmo município, em numpy e geopandas: 8.234 ligações (2024 e 2026), 0 discordâncias.
+- Consistência: cada setor em um único local do mesmo município; nenhum local especial (trânsito, prisional, sem eleitores) com setor; soma das áreas = população.
+- Ligações críveis (0,4 ≤ eleitores/moradores ≤ 1,6): 63% dos locais em 2024 e 61% em 2026 (por município em `credibilidade_municipios.csv`). Locais não críveis ficam fora do perfil.
+- Coligações e prefeitos: os 139 prefeitos eleitos têm partido e estão no `consulta_cand`; toda candidatura votada a Governador/Senador 2026 tem composição.
+- Controle `palmas_censo`: 302.692 moradores = total do projeto anterior.
+
 
 ## Saída da exportação (`python -I scripts/04_exportar.py`)
 
 ```
-municipios=139 arquivos=564 total=6.6 MB maior=estado/2024_vereador_t1.json (0.74 MB) locais_sem_coordenadas=2
+municipios=139 arquivos=1270 total=14.1 MB maior=estado/2024_vereador_t1.json (0.74 MB) locais_sem_coordenadas=2
 ```
 
 ## Testes
 
-- `python -m pytest -v`: 140 passed.
-- `node --test site/tests/*.test.js`: 30 passed.
+- `python -m pytest -q`: 200 passed.
+- `node --test site/tests/`: 41 passed.
 
 ## Exceções (`validacao/excecoes.json`) — aprovadas pelo usuário
 
@@ -84,6 +103,8 @@ arquivo de Palmas, selo, `site_dados/validacao/excecoes.json` e malha respondem 
 - Votos de legenda contam como válidos; em Vereador 2024 de Pugmil (73571) o total difere do TSE em 2 votos
   (legenda de partido ausente da lista oficial). Os outros 300 arquivos oficiais conferem exatamente.
 - 2 locais de votação sem coordenadas: aparecem só nas tabelas.
+- Perfil do voto é do lugar, não do eleitor: a ligação usa o local mais próximo, e o eleitor nem sempre vota perto de casa.
+- "Candidato da coligação" é o registrado no TSE; não equivale a apoio declarado do prefeito.
 - Fora do caso de controle (sem base anterior): 2024 turno 2 e 2026 turno 2.
 - Pendências menores da revisão final (não corrigidas): ver as linhas `minor (deferred)` no ledger e a mensagem
   final do executor.
