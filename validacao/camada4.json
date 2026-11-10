@@ -1,0 +1,20 @@
+{
+  "layer": "4",
+  "passed": true,
+  "checks": [
+    {
+      "check": "prefeito_winners",
+      "passed": true,
+      "n_checked": 140,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "visual_amostra",
+      "passed": true,
+      "n_checked": 11840,
+      "n_divergences": 0,
+      "unregistered": 0
+    }
+  ]
+}

@@ -307,3 +307,13 @@ So PDF (ver 3.a). `totaliz24`: 85.671.399 bytes, 142 arquivos; `totaliz26`: 601.
 pasta temporaria `.<chave>.extraindo`, com checagem de caminhos, renomeada ao fim). Reexecutar nao baixa de novo. Os
 `.sha512` existem so para os 4 BU; as outras 12 fontes (odsele) nao tem hash publicado (404) e o manifesto guarda apenas
 o hash calculado.
+
+## 5. Resultado oficial de divulgacao (camada 4)
+
+Acesso programatico existe: `https://resultados.tse.jus.br/oficial/ele<ano>/<cd_eleicao>/dados/to/to<cd_municipio>-c<cargo 4 dig>-e<cd_eleicao 6 dig>-u.json`
+(estadual: `to-c...`; nao existe arquivo estadual de Vereador/Prefeito). Eleicoes: 2024 T1 619, T2 620;
+2026 estaduais 6259/6260, Presidente 6257/6258. Layout dos diretorios em `oficial/comum/config/ele-c.json`.
+Campos usados: candidato `n`, `nmu`, `vap` (votos apurados), `dvt` (destinacao), `st`; partido `tval` (legenda
+apurada, comparavel ao BU) e `tvtl` (legenda valida: zera em partido anulado e soma nominais convertidos para a
+legenda); `v.vb` brancos, `v.vn` nulos, `v.vnt` nulos tecnicos (= nominais em numeros fora da lista oficial +
+legenda de partido fora da lista). Cache em `dados_brutos/oficial/` (`scripts/conferir_oficial.py`).
