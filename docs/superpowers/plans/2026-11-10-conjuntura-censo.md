@@ -23,6 +23,7 @@
 - Gráficos seguem o skill dataviz (uma escala, legenda, tabela equivalente, tooltip, modo escuro, paleta validada).
 - Publicar (push para `origin/main`, que alimenta o GitHub Pages) só depois de o usuário confirmar.
 - Mensagens ao usuário em português.
+- Princípio de interface pedido pelo usuário: **enxuto, com muita informação e claro**. Densidade alta (tabelas compactas, números com contexto: votos + % + margem), nada decorativo, um título e uma frase de leitura por bloco ("o que isto mostra"), sem texto explicativo longo; detalhes em `<details>` ou no painel, não na tela principal.
 
 ## Review Focus
 
