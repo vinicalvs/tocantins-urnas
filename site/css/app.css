@@ -158,3 +158,19 @@ table.mini td, table.mini th { padding: 4px 6px; }
 .panel details { margin-top: 8px; }
 .panel details summary { min-height: 36px; font-weight: 600; }
 .panel .entorno { margin-top: 16px; border-top: 1px solid var(--line); }
+
+/* Conjuntura: abas e dispersao */
+.tabs .tab { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--axis); text-decoration: none; color: var(--ink);
+  min-height: 44px; display: inline-flex; align-items: center; }
+.tabs .tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.sc-wrap { position: relative; }
+.sc-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+.sc-grid { stroke: var(--line); stroke-width: 1; }
+.sc-axis { stroke: var(--axis); stroke-width: 1; }
+.sc-tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.sc-label { fill: var(--ink-2); font-size: 12px; }
+.sc-dot { stroke: var(--surface); stroke-width: 2; fill-opacity: 0.85; }
+.sc-pt { cursor: default; }
+.sc-pt.on .sc-dot { stroke: var(--ink); fill-opacity: 1; }
+.sc-tip { position: absolute; max-width: 220px; pointer-events: none; background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; font-size: 0.82rem; box-shadow: 0 4px 12px var(--ring); }
