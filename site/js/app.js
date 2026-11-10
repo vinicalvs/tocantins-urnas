@@ -32,7 +32,7 @@ async function route() {
   try {
     const mod = await load();
     if (mine !== token) return;
-    await mod.render(app, r, () => mine !== token);
+    await (mod.view || mod.render)(app, r, () => mine !== token);
   } catch (e) {
     if (mine !== token) return;
     console.error(e);
