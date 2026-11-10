@@ -47,3 +47,14 @@ test('partyByLocal sums nominal and legenda by party', () => {
   const r = partyByLocal([{ id: 'x', votos: { 10111: 30, 22222: 20, 22333: 15, 'legenda:AA': 2, branco: 9 } }], cands);
   assert.deepEqual(r.x, { sg: 'BB', votos: 35, pct: (35 / 67) * 100 });
 });
+
+test('fichaPorId picks the entry of the selected year when the same id is another place', async () => {
+  const { fichaPorId } = await import('../js/views/local_panel.js');
+  const velho = { id: '6-1012', nome: 'ESCOLA A', anos: { 2024: {} }, cargos: { '2024-prefeito-1': [] } };
+  const novo = { id: '6-1012', nome: 'ESCOLA B', anos: { 2026: {} }, cargos: { '2026-governador-1': [] } };
+  const unico = { id: '7-1', nome: 'C', anos: { 2024: {}, 2026: {} }, cargos: {} };
+  assert.equal(fichaPorId([velho, novo, unico], 2024)['6-1012'].nome, 'ESCOLA A');
+  assert.equal(fichaPorId([velho, novo, unico], 2026)['6-1012'].nome, 'ESCOLA B');
+  assert.equal(fichaPorId([velho, novo, unico], 2026)['7-1'], unico);
+  assert.equal(fichaPorId([velho], 2026)['6-1012'], undefined);
+});

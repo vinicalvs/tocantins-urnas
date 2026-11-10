@@ -388,3 +388,19 @@ def test_local_coords_from_one_complete_row(base26, tmp_path, ibge_dir):
     out, _ = run(base26, tmp_path, ibge_dir)
     loc = {l["id"]: l for l in load(out / "92410" / "2026_governador_t1.json")["locais"]}["1-1001"]
     assert (loc["lat"], loc["lon"]) == (-7.3, -48.4)          # secao 1 incompleta; secao 2 e a menor completa
+
+
+def test_ficha_splits_same_id_with_different_names_across_years(base26, tmp_path, ibge_dir):
+    # mesmo "zona-local" em 2024 e 2026, mas outra escola em 2026: nao misturar nome e resultados
+    loc = pd.read_parquet(base26 / "locais.parquet")
+    m = (loc["ano"] == 2026) & (loc["cd_municipio"] == "73440")
+    loc.loc[m, "nm_local"] = "OUTRA ESCOLA"
+    loc.to_parquet(base26 / "locais.parquet")
+    out, _ = run(base26, tmp_path, ibge_dir)
+    fs = [l for l in load(out / "73440" / "locais_ficha.json")["locais"] if l["id"] == "6-1012"]
+    assert len(fs) == 2
+    velho, novo = sorted(fs, key=lambda l: min(l["anos"]))
+    assert velho["nome"] == "ESCOLA 6-1012" and all(k.startswith("2024-") for k in velho["cargos"])
+    assert set(velho["anos"]) == {"2024"} and velho["entorno"]["ano_ligacao"] == 2024
+    assert novo["nome"] == "OUTRA ESCOLA"
+    assert all(k.startswith("2026-") for k in novo["cargos"]) and set(novo["anos"]) == {"2026"}

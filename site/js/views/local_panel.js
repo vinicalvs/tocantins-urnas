@@ -79,6 +79,15 @@ export function tooltipLocal(local) {
     ...linhas.slice(0, 6)].filter(Boolean).join('<br>');
 }
 
+// id -> ficha da eleicao escolhida: o mesmo "zona-local" pode ser outro lugar em outro ano.
+export function fichaPorId(locais, ano) {
+  const out = {};
+  for (const l of locais || []) {
+    if (l.anos?.[ano] || Object.keys(l.cargos || {}).some((k) => k.startsWith(`${ano}-`))) out[l.id] = l;
+  }
+  return out;
+}
+
 // Abre o painel dentro de `container`; Esc e o botao fecham. Devolve a funcao que fecha.
 export function openPanel(container, local, onClose = () => {}) {
   container.querySelector('.panel')?.remove();

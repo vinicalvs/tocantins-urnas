@@ -3,7 +3,7 @@ import { loadIndex, loadMalha, loadConjuntura, loadEstado, fmtInt, fmtPct } from
 import { escapeHtml, CARGO_LABEL, IND_LABEL } from '../analysis.js';
 import { partyColor } from '../colors.js';
 import { createMap, choropleth, themeMode, cssVar } from '../map.js';
-import { rankingPartidos, quintis, correlacaoPonderada, resumoPerfil } from '../conjuntura.js';
+import { rankingPartidos, quintis, correlacaoPonderada, resumoPerfil, STATUS_TXT, resumoEntrega } from '../conjuntura.js';
 import { render as scatter } from '../scatter.js';
 
 const NF1 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 });
@@ -13,7 +13,6 @@ const STATUS_COR = {
   light: { entregou: '#2a78d6', nao_entregou: '#eb6834', sem_candidato: '#b5b4ad' },
   dark: { entregou: '#3987e5', nao_entregou: '#d95926', sem_candidato: '#5f5e5a' },
 };
-const STATUS_TXT = { entregou: 'Entregou', nao_entregou: 'Não entregou', sem_candidato: 'Sem candidato da coligação' };
 // Sequencial azul (um matiz): claro -> escuro no modo claro; no escuro, mais = mais claro.
 const SEQ = { light: ['#cde2fb', '#9ec5f4', '#6da7ec', '#3987e5', '#1c5cab'], dark: ['#184f95', '#256abf', '#3987e5', '#6da7ec', '#b7d3f6'] };
 const ENTREGA = { 'governador-1': 'Governador · 1º turno', 'governador-2': 'Governador · 2º turno', 'senador-1': 'Senador' };
@@ -46,7 +45,6 @@ async function prefeitos(el, route, stale, ctx) {
   const { mode, byCod, byIbge } = ctx;
   const cont = { entregou: 0, nao_entregou: 0, sem_candidato: 0 };
   for (const l of linhas) cont[l.status] += 1;
-  const comCand = cont.entregou + cont.nao_entregou;
   const rank = rankingPartidos(linhas);
   const porCod = Object.fromEntries(linhas.map((l) => [l.cod, l]));
   const sen = c === 'senador-1';
@@ -63,9 +61,7 @@ async function prefeitos(el, route, stale, ctx) {
       <td class="num">${fmtInt(r.entregou)}</td><td class="num">${r.taxa === null ? '–' : fmtPct(r.taxa)}</td></tr>`).join('');
 
   el.innerHTML = `<div class="controls">${sel('cargo', 'Disputa', Object.entries(ENTREGA), c)}</div>
-    <p class="sub">O candidato da coligação do partido do prefeito eleito em 2024 ${sen ? 'ficou entre os 2 mais votados' : 'foi o mais votado'}
-      no município? <strong>${fmtInt(cont.entregou)} de ${fmtInt(comCand)}</strong> prefeitos com candidato da coligação
-      entregaram (${comCand ? fmtPct((100 * cont.entregou) / comCand) : '–'}); ${fmtInt(cont.sem_candidato)} ${cont.sem_candidato === 1 ? 'não tinha' : 'não tinham'} candidato.</p>
+    <p class="sub">${resumoEntrega(cont, sen)}</p>
     <div class="grid2">
       <section class="card"><h2>Mapa dos 139 municípios</h2>
         <div id="mapa" class="map" role="img" aria-label="Mapa por resultado da coligação do prefeito; a mesma informação está na tabela."></div>
@@ -73,8 +69,8 @@ async function prefeitos(el, route, stale, ctx) {
       </section>
       <section class="card"><h2>Por partido do prefeito</h2><div class="table-wrap"><table class="mini">
         <thead><tr><th scope="col">Partido</th><th scope="col" class="num">Prefeituras</th><th scope="col" class="num">Com candidato</th>
-          <th scope="col" class="num">Entregaram</th><th scope="col" class="num">Taxa</th></tr></thead><tbody>${rrows}</tbody></table></div>
-        <p class="muted">Taxa = entregas ÷ prefeituras com candidato da coligação. Coligação registrada no TSE não é o mesmo que apoio declarado.</p>
+          <th scope="col" class="num">Coligação venceu</th><th scope="col" class="num">Taxa</th></tr></thead><tbody>${rrows}</tbody></table></div>
+        <p class="muted">Taxa = vitórias da coligação ÷ prefeituras com candidato da coligação. Coligação registrada no TSE não é o mesmo que apoio declarado.</p>
       </section>
     </div>
     <section class="card"><details><summary>Tabela por município (${linhas.length})</summary><div class="table-wrap"><table class="mini">

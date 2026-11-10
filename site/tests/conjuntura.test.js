@@ -45,3 +45,15 @@ test('perfil text never says porque/causa', () => {
     assert.match(t, /PL/);
   }
 });
+
+test('entrega texts describe the coalition result without crediting the mayor', async () => {
+  const { STATUS_TXT, resumoEntrega } = await import('../js/conjuntura.js');
+  const { prefeitoCard } = await import('../js/views/municipio.js');
+  const linha = { cod: '1', prefeito: { nome: 'P', partido: 'PP' }, status: 'entregou', cand_nome: 'C', cand_partido: 'PP',
+    venc_nome: 'C', venc_partido: 'PP', margem_pp: 3 };
+  const textos = [...Object.values(STATUS_TXT), resumoEntrega({ entregou: 3, nao_entregou: 1, sem_candidato: 1 }, false),
+    resumoEntrega({ entregou: 1, nao_entregou: 0, sem_candidato: 0 }, true),
+    prefeitoCard({ 'governador-1': [linha] }, '1')];
+  for (const t of textos) assert.doesNotMatch(t, /entreg/i);
+  assert.match(resumoEntrega({ entregou: 3, nao_entregou: 1, sem_candidato: 1 }, false), /3 de 4/);
+});

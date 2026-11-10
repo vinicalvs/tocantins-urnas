@@ -229,6 +229,19 @@ def _local_id(d: pd.DataFrame) -> pd.Series:
     return d["zona"].astype(int).astype(str) + "-" + d["local"].astype(int).astype(str)
 
 
+def _nome_norm(nome) -> str:
+    t = unicodedata.normalize("NFKD", str(nome or "")).encode("ascii", "ignore").decode()
+    return " ".join(t.upper().split())
+
+
+def _chave_ficha(fichas: dict, lid: str, nome, ano: int) -> str:
+    """O mesmo "zona-local" pode ser outro local em outro ano: junta os anos so com o mesmo nome."""
+    f = fichas.get(lid)
+    if f is None or not f["nome"] or not nome or _nome_norm(f["nome"]) == _nome_norm(nome)             or any(k.startswith(f"{ano}-") for k in f["cargos"]):
+        return lid
+    return f"{lid}@{ano}"
+
+
 def _ficha_cargo(dm: pd.DataFrame, limite: int | None) -> dict[str, list[dict]]:
     """Por local: candidatos mais votados com % sobre os validos do local."""
     lid = _local_id(dm)
@@ -335,8 +348,9 @@ def export_all(base: Path, out: Path, valid_dir: Path, ibge_dir: Path = RAW / "i
             sem_coord[mun] |= {(ano, l["id"]) for l in locs if l["lat"] is None}
             votos_local = _ficha_cargo(dm, LIMITE_FICHA.get(cargo))
             for l in locs:
-                f = ficha[mun].setdefault(l["id"], {"id": l["id"], "nome": None, "bairro": None, "lat": None,
-                                                    "lon": None, "anos": {}, "cargos": {}, "entorno": None})
+                k = _chave_ficha(ficha[mun], l["id"], l["nome"], ano)
+                f = ficha[mun].setdefault(k, {"id": l["id"], "nome": None, "bairro": None, "lat": None,
+                                              "lon": None, "anos": {}, "cargos": {}, "entorno": None})
                 for k in ("nome", "bairro"):
                     f[k] = l[k] or f[k]
                 if l["lat"] is not None:
@@ -373,8 +387,10 @@ def export_all(base: Path, out: Path, valid_dir: Path, ibge_dir: Path = RAW / "i
     area_de = {(int(a), m, l): x for a, m, l, x in zip(areas["ano"], areas["cd_municipio"], areas["local_id"],
                                                        areas["area_id"])}
     for mun in sorted(cw):
-        for lid, f in ficha[mun].items():
-            ano_e = 2026 if (2026, mun, lid) in cred_de else 2024
+        for f in ficha[mun].values():
+            lid = f["id"]
+            anos_f = {int(k[:4]) for k in f["cargos"]}
+            ano_e = 2026 if 2026 in anos_f and (2026, mun, lid) in cred_de else min(anos_f)
             c = cred_de.get((ano_e, mun, lid))
             if c is not None and c["credivel"]:
                 s = set_idx.loc[setores_de.get((ano_e, mun, lid), [])]

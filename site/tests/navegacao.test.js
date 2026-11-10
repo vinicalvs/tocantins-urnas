@@ -41,3 +41,32 @@ test('menu has no comparativo link', () => {
   assert.doesNotMatch(html, /comparativo|2024 × 2026/);
   assert.ok(!('comparativo' in views));
 });
+
+test('going back to the current screen while another loads still renders it', async () => {
+  let rendersA = 0;
+  let solta;
+  const portao = new Promise((r) => { solta = r; });
+  views.ta = async () => ({ render: async (app) => { rendersA += 1; app.innerHTML = 'A'; }, update: () => {} });
+  views.tb = async () => ({ render: async (app, r, stale) => { await portao; if (!stale()) app.innerHTML = 'B'; } });
+  try {
+    const app = { innerHTML: '' };
+    await routeTo(app, '#/ta');
+    const b = routeTo(app, '#/tb');
+    await routeTo(app, '#/ta');
+    solta();
+    await b;
+    assert.equal(app.innerHTML, 'A');
+    assert.equal(rendersA, 2);
+  } finally {
+    delete views.ta; delete views.tb;
+  }
+});
+
+test('closing the panel goes back when it was opened here, otherwise replaces the entry', async () => {
+  const { fecharPainel } = await import('../js/views/municipio.js');
+  const calls = [];
+  const hist = { back: () => calls.push('back'), replaceState: (_s, _t, url) => calls.push(`replace ${url}`) };
+  fecharPainel({ abertoAqui: true, history: hist, hash: '#/municipio/1?e=x&local=2', reabrir: () => calls.push('update') });
+  fecharPainel({ abertoAqui: false, history: hist, hash: '#/municipio/1?e=x&local=2', reabrir: () => calls.push('update') });
+  assert.deepEqual(calls, ['back', 'replace #/municipio/1?e=x', 'update']);
+});

@@ -3,7 +3,7 @@ import { loadIndex, loadMunicipio, loadFicha, loadIbge, loadConjuntura, fmtInt, 
 import { escapeHtml, winnerByLocal, partyByLocal, availableTurnos, electionLabel, CARGO_LABEL, MAJORITARIOS } from '../analysis.js';
 import { partyColor } from '../colors.js';
 import { createMap, circleLayer, markersFromLocais, themeMode, cssVar } from '../map.js';
-import { openPanel, tooltipLocal } from './local_panel.js';
+import { openPanel, tooltipLocal, fichaPorId } from './local_panel.js';
 
 const swatch = (sg, mode) => `<span class="sw" style="background:${partyColor(sg, mode)}"></span>`;
 const NF0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
@@ -93,7 +93,7 @@ export function prefeitoCard(conj, cod) {
       ? `<div class="muted">mais votado: ${escapeHtml(r.venc_nome)} (${escapeHtml(r.venc_partido)})</div>` : ''}</td>
     <td class="num">${r.margem_pp === null || r.margem_pp === undefined ? '–'
       : `${r.margem_pp > 0 ? '+' : ''}${NF1.format(r.margem_pp)} p.p.`}</td></tr>`).join('');
-  return `<section class="card"><h2>O prefeito entregou em 2026?</h2>
+  return `<section class="card"><h2>A coligação do prefeito em 2026</h2>
     <p class="sub" style="margin-bottom:8px"><strong>${escapeHtml(p.nome)}</strong> (${escapeHtml(p.partido)}), eleito em 2024.
       Candidato da coligação = aquele cuja coligação ou federação inclui o partido do prefeito.</p>
     <div class="table-wrap"><table class="mini"><thead><tr><th scope="col">Cargo</th><th scope="col">Candidato da coligação</th>
@@ -102,10 +102,10 @@ export function prefeitoCard(conj, cod) {
       <a href="#/conjuntura">Ver todos os municípios</a>.</p></section>`;
 }
 
-let state = { cod: null, ficha: null, close: null };
+let state = { cod: null, ficha: null, close: null, abertoAqui: false };
 
-function hashWithout(local) {
-  const [path, query = ''] = location.hash.split('?');
+function hashWithout(local, hash = location.hash) {
+  const [path, query = ''] = hash.split('?');
   const p = new URLSearchParams(query);
   if (local === null) p.delete('local'); else p.set('local', local);
   const q = p.toString();
@@ -116,10 +116,22 @@ function hashWithout(local) {
 export function update(app, route) {
   const id = route.params.local;
   if (state.close) { const c = state.close; state.close = null; c(true); }
+  if (!id) state.abertoAqui = false;
   if (!id || !state.ficha) return;
-  const local = state.ficha.find((l) => l.id === id);
+  const local = state.ficha[id];
   if (!local) return;
-  state.close = openPanel(app, local, () => { state.close = null; location.hash = hashWithout(null); });
+  state.close = openPanel(app, local, () => {
+    state.close = null;
+    fecharPainel({ abertoAqui: state.abertoAqui, history, hash: location.hash,
+      reabrir: () => window.dispatchEvent(new HashChangeEvent('hashchange')) });
+  });
+}
+
+// Fechar nao empilha historico: aberto por clique aqui -> volta; aberto por link -> troca a entrada atual.
+export function fecharPainel({ abertoAqui, history: h, hash, reabrir }) {
+  if (abertoAqui) { h.back(); return; }
+  h.replaceState(null, '', hashWithout(null, hash));
+  reabrir();
 }
 
 export async function render(app, route, stale) {
@@ -139,8 +151,8 @@ export async function render(app, route, stale) {
   const [json, ficha, ibge, conj] = await Promise.all([loadMunicipio(cod, sel.ano, sel.cargo, turno),
     opt(loadFicha(cod)), opt(loadIbge(cod)), opt(loadConjuntura('prefeitos_2026'))]);
   if (stale()) return;
-  state = { cod, ficha: ficha?.locais || null, close: null };
-  const fichaDe = Object.fromEntries((ficha?.locais || []).map((l) => [l.id, l]));
+  const fichaDe = fichaPorId(ficha?.locais, sel.ano);
+  state = { cod, ficha: ficha ? fichaDe : null, close: null, abertoAqui: false };
   const mode = themeMode();
   const t = json.totais;
   const cands = Object.fromEntries(json.candidatos.map((c) => [String(c.nr), c]));
@@ -208,7 +220,11 @@ export async function render(app, route, stale) {
   for (const b of app.querySelectorAll('[data-turno]')) {
     b.addEventListener('click', () => { location.hash = `#/municipio/${cod}?e=${sel.ano}-${sel.cargo}-${b.dataset.turno}`; });
   }
-  const abrir = (id) => { location.hash = hashWithout(id); };
+  const abrir = (id) => {
+    if (state.close) { location.replace(hashWithout(id)); return; }   // trocar de local nao empilha
+    state.abertoAqui = true;
+    location.hash = hashWithout(id);
+  };
   for (const tr of app.querySelectorAll('tr[data-local]')) {
     tr.addEventListener('click', () => abrir(tr.dataset.local));
     tr.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') abrir(tr.dataset.local); });

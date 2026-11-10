@@ -2,6 +2,18 @@
 const NF1 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const NF2 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+// Textos: descrevem o resultado da coligacao no municipio, sem atribui-lo ao prefeito (spec, risco 5).
+export const STATUS_TXT = { entregou: 'Coligação venceu', nao_entregou: 'Coligação perdeu', sem_candidato: 'Sem candidato da coligação' };
+
+export function resumoEntrega(cont, sen) {
+  const com = cont.entregou + cont.nao_entregou;
+  const pct = com ? `${NF1.format((100 * cont.entregou) / com)}%` : '–';
+  return `O candidato da coligação do partido do prefeito eleito em 2024 ${sen ? 'ficou entre os 2 mais votados' : 'foi o mais votado'}
+    em <strong>${com ? `${cont.entregou} de ${com}` : '0'}</strong> municípios onde a coligação tinha candidato (${pct});
+    em ${cont.sem_candidato} não havia candidato da coligação.
+    É o resultado no município, não uma medida da influência do prefeito.`;
+}
+
 // Por partido do prefeito: prefeituras, quantas tinham candidato da coligacao, quantas entregaram e a taxa
 // (entregas / com candidato, %; null sem candidato).
 export function rankingPartidos(linhas) {

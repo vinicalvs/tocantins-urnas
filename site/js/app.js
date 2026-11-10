@@ -58,6 +58,7 @@ export async function routeTo(app, hash, { nav = () => {}, trail = () => {} } = 
       trail(r);
       return;
     }
+    current = { key: null, mod: null };   // a tela antiga deixa de valer: voltar a ela renderiza de novo
     app.innerHTML = '<p class="loading">Carregando…</p>';
     const mod = await (views[r.view] || views.estado)();
     if (mine !== token) return;
