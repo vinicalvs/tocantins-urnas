@@ -172,7 +172,7 @@ def test_failed_rerun_keeps_previous_outputs_and_leaves_no_tmp(bu_csv, tmp_path,
     def boom(*a, **k):
         raise OSError("disco cheio")
 
-    monkeypatch.setattr(nz, "_write_exclusoes", boom)
+    monkeypatch.setattr(nz, "_stage_exclusoes", boom)
     other = write_bu_csv(tmp_path / "outro.csv", [bu_row(QT_VOTOS="99")])
     with pytest.raises(OSError):
         normalize_bu([other], out)
