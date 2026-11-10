@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tocantins nas Urnas</title>
+  <meta name="description" content="Resultados das eleições de 2024 e 2026 no Tocantins por município e local de votação, a partir dos boletins de urna do TSE, com validação em 4 camadas.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#app">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="#/estado">Tocantins <span>nas urnas</span></a>
+    <nav aria-label="Principal">
+      <a href="#/estado" data-nav="estado">Estado</a>
+      <a href="#/municipio" data-nav="municipio">Municípios</a>
+      <a href="#/comparativo" data-nav="comparativo">2024 × 2026</a>
+    </nav>
+    <div id="selo-badge" class="selo-badge" aria-live="polite"></div>
+  </header>
+  <main id="app" tabindex="-1"><p class="loading">Carregando…</p></main>
+  <footer class="foot">
+    Fonte: boletins de urna e dados abertos do <a href="https://dadosabertos.tse.jus.br/" rel="noopener">TSE</a>;
+    malha municipal do <a href="https://www.ibge.gov.br/" rel="noopener">IBGE</a>.
+    Conferido contra o resultado oficial publicado pelo TSE. <a href="#/selo">Como validamos</a>.
+  </footer>
+</body>
+</html>
