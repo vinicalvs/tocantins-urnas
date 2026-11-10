@@ -36,3 +36,24 @@ export function choropleth(map, geojson, { fill, tooltip, onClick, surface }) {
   map.fitBounds(layer.getBounds(), { padding: [8, 8] });
   return layer;
 }
+
+// Marcadores so para locais com lat e lon (os demais aparecem apenas na tabela).
+export function markersFromLocais(locais, winners) {
+  return locais
+    .filter((l) => typeof l.lat === 'number' && typeof l.lon === 'number')
+    .map((l) => ({ id: l.id, nome: l.nome, lat: l.lat, lon: l.lon, winner: winners[l.id] }));
+}
+
+// Camada de circulos: color(marker) -> cor; tooltip(marker) -> html escapado; radius(marker) opcional.
+export function circleLayer(map, markers, { color, tooltip, radius, surface, onClick }) {
+  const L = globalThis.L;
+  const group = L.featureGroup(markers.map((m) => {
+    const c = L.circleMarker([m.lat, m.lon], {
+      radius: radius ? radius(m) : 8, fillColor: color(m), fillOpacity: 0.9, color: surface, weight: 2,
+    }).bindTooltip(tooltip(m));
+    if (onClick) c.on('click', () => onClick(m));
+    return c;
+  })).addTo(map);
+  if (markers.length) map.fitBounds(group.getBounds(), { padding: [24, 24], maxZoom: 15 });
+  return group;
+}

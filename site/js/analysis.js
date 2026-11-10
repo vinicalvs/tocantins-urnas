@@ -58,3 +58,9 @@ export function electionOptions(index) {
 export function parseElection(key, options) {
   return options.find((o) => electionKey(o) === key) || options[0];
 }
+
+// Turnos que existem para (municipio, ano, cargo): a tela so oferece estes.
+export function availableTurnos(index, cod, ano, cargo) {
+  const m = index.municipios.find((x) => x.cod === cod);
+  return [...(m?.disponivel?.[String(ano)]?.[cargo] || [])].sort((a, b) => a - b);
+}
