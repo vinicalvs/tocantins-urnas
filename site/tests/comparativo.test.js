@@ -73,3 +73,12 @@ test('selo.render links each published report file, not a bare directory', () =>
   assert.match(html, /href="[^"]*\/validacao\/camada1\.json"/);
   assert.match(html, /href="[^"]*\/validacao\/excecoes\.json"/);
 });
+
+test('selo.render shows camada 5 label and credible-link percentage', () => {
+  const html = renderSelo({
+    status: 'ok', data: '2026-11-10T12:00:00+00:00', camadas: { '5': true }, checks: [],
+    credibilidade: { '2024': { locais: 893, criveis: 563, pct: 63.0 }, '2026': { locais: 928, criveis: 566, pct: 61.0 } },
+  });
+  assert.match(html, /Camada 5: Censo 2022 e ligações setor → local/);
+  assert.match(html, /Ligações críveis: 63,0% dos locais em 2024 · 61,0% em 2026/);
+});

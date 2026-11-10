@@ -1,12 +1,13 @@
 {
   "status": "ok",
-  "data": "2026-11-10T15:27:01+00:00",
+  "data": "2026-11-10T17:36:45+00:00",
   "camadas": {
     "1": true,
     "2": true,
     "3": true,
     "4": true,
-    "controle": true
+    "controle": true,
+    "5": true
   },
   "falhas": [],
   "checks": [
@@ -14,7 +15,7 @@
       "layer": "1",
       "check": "hash_manifest",
       "passed": true,
-      "n_checked": 18,
+      "n_checked": 26,
       "n_divergences": 0
     },
     {
@@ -133,7 +134,7 @@
       "layer": "4",
       "check": "visual_amostra",
       "passed": true,
-      "n_checked": 11840,
+      "n_checked": 12170,
       "n_divergences": 0
     },
     {
@@ -141,6 +142,55 @@
       "check": "palmas_turno1",
       "passed": true,
       "n_checked": 171501,
+      "n_divergences": 0
+    },
+    {
+      "layer": "5",
+      "check": "setores_integridade",
+      "passed": true,
+      "n_checked": 4117,
+      "n_divergences": 0
+    },
+    {
+      "layer": "5",
+      "check": "fechamento_municipio",
+      "passed": true,
+      "n_checked": 139,
+      "n_divergences": 0
+    },
+    {
+      "layer": "5",
+      "check": "ligacao_impl_disagreement",
+      "passed": true,
+      "n_checked": 8234,
+      "n_divergences": 0
+    },
+    {
+      "layer": "5",
+      "check": "ligacao_consistencia",
+      "passed": true,
+      "n_checked": 8234,
+      "n_divergences": 0
+    },
+    {
+      "layer": "5",
+      "check": "ligacao_credibilidade",
+      "passed": true,
+      "n_checked": 1829,
+      "n_divergences": 0
+    },
+    {
+      "layer": "5",
+      "check": "coligacoes_prefeitos",
+      "passed": true,
+      "n_checked": 139,
+      "n_divergences": 0
+    },
+    {
+      "layer": "controle",
+      "check": "palmas_censo",
+      "passed": true,
+      "n_checked": 1,
       "n_divergences": 0
     }
   ],
@@ -151,6 +201,12 @@
     "bu26_t2": "e667f9b68bb71065fec219cbf18b4621b0062ced6b09dec227d32f8621c9b6697b55d216bce0920de30eea37c16bc42a3a684d71bdb49051c68d850f1f74b0ef",
     "cand24": "6df529bb42037774fe5fa700b5c06b6a24aeae86c1a586cf7212858ce67817f3dc214ed395ef0322305a273d26aff4f5f555453fe76b6209f7d26c7ea32dbee0",
     "cand26": "60e6dfc869b6da84d4a5401033585e930e727b96ce9daa7fd4e02ec5ae962c452d6530cc96c815e288b1afebc67cf699bac4ccb9eeda35f67863bf793b37d989",
+    "censo_alfabetizacao": "7a675ec630f1c75fc293225401c1376585e522190c88feee1cb0643bd7bc14455d8a6f4043795631c9670f69e70e01bb0f5cd8b296b1bb1b606cc9baf780d677",
+    "censo_basico": "821da8303cf507203a414661e3d4a9e7095687543f1228182dbd12006d7d1565df1229040559b392d85ddc8dba31153ba7e4a6b5fc6fdf77ad0fdee6520939d1",
+    "censo_cor_raca": "e2930f84c335432250754815a8d6b42d48c1bba1d9d5852ed215e2779479d6f364ba0073fce7560c0c009c4cbe5725805f18cb6b13e7a9c5772667f9b525cf9e",
+    "censo_demografia": "3841ce6c7e3c015f2f544f8592aabd83beb537c51f4bd5838e88088fa9e47453d6460e48bb3c3c0ab46e76913ea28e9edf441649c7a2f6dbac895aa7cd488834",
+    "censo_domicilio2": "28836a4481eb97327a078898f1f1d9309ecb7d739ea8fcee2f656140f89133c0ac003033cc28707dbc8d7218d85e72855cd9cea321feda97416d133a4b648eba",
+    "censo_malha_to": "a370f22a517f85f7ecb07b58a3cba228c0e939702b86e3c640ea49ff0c3204ea4982efbdd74cf8875a5bf88dfbbc0ca56cdfb5bbc43cef0cc0dcd052557013e2",
     "detalhe24": "0a3c52451647d57f7d79786934ad0bf764e9f79d84cf224c363a81808f908b81574981993ba3334fe32cf078df0c3efd1b5c7122826982b9d18b67c0c1a19cec",
     "detalhe26": "39e01de54f3fe52df8707c0786cfb2926ae728c625abfc305d66f59b8a33ccc7d9c53e0a2aa707589085a5dbf06ec8c6bd3247e74bfddcc7c300e7398b748d58",
     "ibge_malha": "2d0dba66ce8f51c6fdd963c09ba7692bc0ac2fcf36b22160226113f9977a08bf979f200e6280c0a98cc91afde534a61d67ab6fb4b34e97264700ba076a35096a",
@@ -161,6 +217,8 @@
     "munzona26": "2588882a3a4a2280b547aee8850f7ba0ed911965b2c10832171c502919ad1b730dd9d9f16f00f49d553cdc75e199643b4ecaafaecf47cad339bd8f93a45d2ce0",
     "secao24": "d605cf8a67d6df6ed28fd62835cc6f0402a987f92df0570fc292c9f65545e29492cb99802ae3a9c28ad8f7cd9088224f6b7e56f41277abd6746463610a06e92b",
     "secao26": "139c1815565bfe763f652f76383c0d16138bf66f2f855507ed93de0d33d05ea709f617433c6499e7183d045f16712fda5cec9936be3ce165f7d01d13266ee275",
+    "sidra_pib": "100739640ab4e9960dd812758badddebd2bf48073ab358c425486e05c8743ff0538d4948a8c3639fdb2372022c008731110fb2e0d4414a4e98cdb18a86bb07a5",
+    "sidra_pop_area": "2c92a6ef6c0ab35f98498f8d8be660464576d4966111d45b19a6f0eb4f5c61aa59d3345e7e9861219043a5996345e4748c84081bb65a346e9b8313b0c57533ae",
     "totaliz24": "2c1ba46e7702620b5f26ebb60481d96ee265628c5964a2ff056e5badae058d39a1dc372f8251a9cf7ac1c4d36b6275110689baacabea522e95e18d94137d7306",
     "totaliz26": "e3a1f87b0bf877c97b958f6a9e06cdd668cda14eece547bb86425aebc1ed3e7781dffa1fca4702cd78f8f378e33d5f9c497aa8a97b5dad9b7dd0fe6f8cd252ec"
   },
@@ -3418,5 +3476,17 @@
   "fora_do_controle": [
     "2024 turno 2",
     "2026 turno 2"
-  ]
+  ],
+  "credibilidade": {
+    "2024": {
+      "locais": 897,
+      "criveis": 561,
+      "pct": 62.5
+    },
+    "2026": {
+      "locais": 928,
+      "criveis": 573,
+      "pct": 61.7
+    }
+  }
 }

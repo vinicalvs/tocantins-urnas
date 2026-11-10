@@ -12,7 +12,7 @@
     {
       "check": "visual_amostra",
       "passed": true,
-      "n_checked": 11840,
+      "n_checked": 12170,
       "n_divergences": 0,
       "unregistered": 0
     }

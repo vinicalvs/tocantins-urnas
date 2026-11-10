@@ -5,7 +5,6 @@ local_credibilidade e area_votacao (.parquet). Rode depois de 01_baixar e 02_nor
 
 Uso: python -I scripts/02b_censo.py
 """
-import json
 import sys
 import time
 from pathlib import Path
@@ -18,12 +17,6 @@ from tocantins import censo, coligacoes, crosswalk, ligacao  # noqa: E402
 from tocantins.config import BASE, RAW  # noqa: E402
 
 
-def mapa_ibge() -> dict[str, str]:
-    nomes = pd.read_parquet(BASE / "bu_secao.parquet", columns=["cd_municipio", "nm_municipio"]).drop_duplicates()
-    ibge = json.loads((RAW / "ibge" / "municipios_17.json").read_text(encoding="utf-8"))
-    return crosswalk.build(nomes, ibge, crosswalk.load_overrides())
-
-
 def main() -> None:
     t0 = time.time()
     setores = censo.build_setores(RAW)
@@ -33,7 +26,7 @@ def main() -> None:
 
     coligacoes.build(pd.read_parquet(BASE / "candidatos.parquet")).to_parquet(BASE / "coligacoes.parquet")
 
-    cw = mapa_ibge()
+    cw = crosswalk.mapa_base(BASE, RAW)
     locais = pd.read_parquet(BASE / "locais.parquet")
     links, creds, areas_ = [], [], []
     for ano in (2024, 2026):

@@ -44,3 +44,10 @@ def build(tse: pd.DataFrame, ibge: list[dict], overrides: dict[str, str],
     if erros or len(out) != expected:
         raise ValueError(f"crosswalk com {len(out)} de {expected} municipios; " + "; ".join(erros))
     return out
+
+
+def mapa_base(base: Path, raw: Path, expected: int = N_MUNICIPIOS) -> dict[str, str]:
+    """Codigo TSE -> IBGE a partir dos nomes do BU (base/bu_secao.parquet) e da lista do IBGE baixada."""
+    nomes = pd.read_parquet(Path(base) / "bu_secao.parquet", columns=["cd_municipio", "nm_municipio"]).drop_duplicates()
+    ibge = json.loads((Path(raw) / "ibge" / "municipios_17.json").read_text(encoding="utf-8"))
+    return build(nomes, ibge, load_overrides(), expected)

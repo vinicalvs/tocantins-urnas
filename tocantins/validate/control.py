@@ -1,4 +1,9 @@
-"""Caso de controle: Palmas (73440) turno 1 reproduz os votos de B24.pkl/B26.pkl do projeto anterior."""
+"""Casos de controle de Palmas (73440 / IBGE 1721000), lendo o projeto anterior somente para leitura.
+
+- palmas_turno1: votos do turno 1 = B24.pkl/B26.pkl.
+- palmas_censo: moradores dos setores de Palmas = "Palmas (total)" de census_regioes.json.
+"""
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -41,3 +46,15 @@ def fora_do_controle(bu: pd.DataFrame) -> list[str]:
     """Turnos de Palmas alem do 1o (nao cobertos pelos pickles): reportados, nunca reprovados."""
     p = bu.loc[(bu["cd_municipio"] == PALMAS) & (bu["turno"] != 1), ["ano", "turno"]].drop_duplicates()
     return [f"{a} turno {t}" for a, t in sorted(map(tuple, p.values.tolist()))]
+
+
+PALMAS_IBGE = "1721000"
+
+
+def palmas_censo(setores: pd.DataFrame, palmas_dir: Path, exceptions: list[dict] = ()) -> LayerResult:
+    """Populacao dos setores de Palmas = total do projeto anterior (que conta 734 poligonos; aqui 733 setores)."""
+    ref = json.loads((Path(palmas_dir) / "census_regioes.json").read_text(encoding="utf-8"))["Palmas (total)"]["pop"]
+    base = int(setores.loc[setores["cd_mun_ibge"] == PALMAS_IBGE, "moradores"].sum())
+    div = pd.DataFrame([{"populacao_base": base, "populacao_controle": int(ref)}] if base != int(ref) else [],
+                       columns=["populacao_base", "populacao_controle"])
+    return make_result(LAYER, "palmas_censo", 1, div, list(exceptions))

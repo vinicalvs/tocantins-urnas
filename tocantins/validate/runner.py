@@ -1,4 +1,4 @@
-"""Roda as 4 camadas + o controle Palmas e grava relatorio e selo de validacao."""
+"""Roda as 5 camadas + os controles de Palmas e grava relatorio e selo de validacao."""
 import json
 import os
 from datetime import datetime, timezone
@@ -8,10 +8,12 @@ import duckdb
 import pandas as pd
 
 from tocantins.config import PALMAS_DIR, RAW
-from tocantins.validate import control, layer1, layer2, layer3, layer4
+from tocantins import crosswalk
+from tocantins.validate import control, layer1, layer2, layer3, layer4, layer5
 from tocantins.validate.result import LayerResult, apply_exceptions, load_bu_columns, load_exceptions, write_report
 
 VISUAL_FILE = "camada4_oficial.json"
+CRED_FILE = "credibilidade_municipios.csv"
 
 
 def _bu_columns() -> list[str]:
@@ -28,9 +30,18 @@ def load_inputs(base: Path) -> dict[str, pd.DataFrame]:
         "bu": load_bu_columns(base / "bu_secao.parquet", _bu_columns()),
         "locais": load_bu_columns(base / "locais.parquet", layer2.LOCAIS_COLUMNS),
         "munzona": load_bu_columns(base / "munzona.parquet",
-                                   sorted(set(layer3.MUNZONA_COLUMNS + layer4.MUNZONA_COLUMNS))),
+                                   sorted(set(layer3.MUNZONA_COLUMNS + layer4.MUNZONA_COLUMNS
+                                              + layer5.MUNZONA_COLUMNS))),
         "votacao_secao": load_bu_columns(base / "votacao_secao.parquet", layer3.SECAO_COLUMNS),
         "detalhe": load_bu_columns(base / "detalhe_munzona.parquet", layer3.DETALHE_COLUMNS),
+        # camada 5
+        "setores": pd.read_parquet(base / "censo_setor.parquet", columns=["cd_setor", "cd_mun_ibge", "moradores", "sigilo"]),
+        "municipios": pd.read_parquet(base / "ibge_municipio.parquet"),
+        "ligacao": pd.read_parquet(base / "ligacao_setor_local.parquet"),
+        "areas": pd.read_parquet(base / "area_votacao.parquet"),
+        "credibilidade": pd.read_parquet(base / "local_credibilidade.parquet"),
+        "coligacoes": pd.read_parquet(base / "coligacoes.parquet"),
+        "crosswalk": crosswalk.mapa_base(base, RAW),
     }
 
 
@@ -54,6 +65,10 @@ def run_all(base: Path, valid_dir: Path, raw_manifest: Path, palmas_dir: Path = 
     results += layer3.run(d["bu"], d["munzona"], d["votacao_secao"], d["detalhe"], con, exc)
     results += layer4.run(d["bu"], d["munzona"], valid_dir / VISUAL_FILE, exc, oficial_dir)
     results.append(control.palmas_control(d["bu"], palmas_dir, exc))
+    if "setores" in d:  # camada 5 (testes antigos montam inputs so das camadas 1-4)
+        results += layer5.run(d, exc)
+        results.append(control.palmas_censo(d["setores"], palmas_dir, exc))
+        layer5.por_municipio(d["credibilidade"]).to_csv(valid_dir / CRED_FILE, index=False)
     write_report(results, valid_dir)
     return results
 

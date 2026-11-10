@@ -3,8 +3,8 @@
 Alvos (spec secao 6, com Ruling R29):
 - Prefeito 2024: os 139 municipios no turno 1 e os municipios do turno 2.
 - Vereador 2024: os 139 municipios (o total estadual e a soma deles; nao ha arquivo estadual).
-- Deputado Federal e Deputado Estadual 2026: amostra de 10 municipios (5 maiores + 5 sorteados,
-  semente 2026) e o arquivo estadual.
+- Deputado Federal, Deputado Estadual, Governador (turnos 1 e 2) e Senador 2026: amostra de 10 municipios
+  (5 maiores + 5 sorteados, semente 2026) e o arquivo estadual.
 
 Os JSON oficiais ficam em dados_brutos/oficial/ (baixados uma vez, nunca sobrescritos).
 Saida: validacao/camada4_oficial.json (uma linha por candidato/total conferido).
@@ -33,8 +33,9 @@ def alvos(bu, locais) -> list[tuple[int, str, int, str | None]]:
     out = [(2024, "Prefeito", 1, m) for m in t1] + [(2024, "Prefeito", 2, m) for m in t2]
     out += [(2024, "Vereador", 1, m) for m in t1]
     amostra = layer4.sample_municipios(locais, 2026)
-    for cargo in ("Deputado Federal", "Deputado Estadual"):
-        out += [(2026, cargo, 1, m) for m in amostra] + [(2026, cargo, 1, None)]
+    for cargo, turno in (("Deputado Federal", 1), ("Deputado Estadual", 1), ("Governador", 1), ("Governador", 2),
+                         ("Senador", 1)):
+        out += [(2026, cargo, turno, m) for m in amostra] + [(2026, cargo, turno, None)]
     return out
 
 
