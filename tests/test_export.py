@@ -194,3 +194,42 @@ def test_legenda_of_party_without_own_candidates_is_valid(base, tmp_path, ibge_d
     v = load(out / "92410" / "2024_vereador_t1.json")
     assert v["totais"]["nulos_tecnicos"] == 0 and v["totais"]["validos"] == 12
     assert {p["sg"]: p["legenda"] for p in v["partidos"]} == {"AA": 2, "PCDOB": 4}
+
+
+def test_export_publishes_validation_reports_next_to_data(base, tmp_path, ibge_dir):
+    v = tmp_path / "validacao"
+    v.mkdir()
+    (v / "camada1.json").write_text("{}", encoding="utf-8")
+    (v / "camadacontrole.json").write_text("{}", encoding="utf-8")
+    (v / "divergencias_x.csv").write_text("sem_divergencias\n", encoding="utf-8")
+    (v / "excecoes.json").write_text("[]", encoding="utf-8")
+    (v / "camada4_oficial.json").write_text("[]", encoding="utf-8")   # grande; fica so no repositorio
+    out, _ = run(base, tmp_path, ibge_dir)
+    pub = sorted(p.name for p in (out / "validacao").iterdir())
+    assert pub == ["camada1.json", "camadacontrole.json", "divergencias_x.csv", "excecoes.json"]
+    assert load(out / "index.json")["relatorios"] == pub
+
+
+def test_state_file_of_statewide_cargo_has_votes_per_municipality(base, tmp_path, ibge_dir):
+    bu = pd.read_parquet(base / "bu_secao.parquet")
+    dep = (secao(2026, 1, "Deputado Federal", 6, "73440", 6, 1, 1012, {("Nominal", 1010, "AA"): 7,
+                                                                      ("Nominal", 2020, "BB"): 3})
+           + secao(2026, 1, "Deputado Federal", 6, "92410", 1, 1, 1001, {("Nominal", 1010, "AA"): 4}))
+    pd.concat([bu, pd.DataFrame(dep)], ignore_index=True).to_parquet(base / "bu_secao.parquet")
+    loc = pd.read_parquet(base / "locais.parquet")
+    loc26 = loc[loc["turno"] == 1].assign(ano=2026)
+    pd.concat([loc, loc26], ignore_index=True).to_parquet(base / "locais.parquet")
+    mz = pd.read_parquet(base / "munzona.parquet")
+    mz26 = pd.DataFrame([{**mz.iloc[0].to_dict(), "ano": 2026, "turno": 1, "cargo": "Deputado Federal",
+                          "cd_municipio": "73440", "nr_candidato": nr, "sg_partido": sg, "situacao_turno": st}
+                         for nr, sg, st in [(1010, "AA", "ELEITO POR QP"), (2020, "BB", "NÃO ELEITO")]])
+    pd.concat([mz, mz26], ignore_index=True).to_parquet(base / "munzona.parquet")
+    out, _ = run(base, tmp_path, ibge_dir)
+    s = load(out / "estado" / "2026_deputado_federal_t1.json")
+    by = {c["nr"]: c for c in s["candidatos"]}
+    assert by[1010]["votos"] == 11 and by[1010]["municipios"] == {"73440": 7, "92410": 4}
+    assert by[2020]["municipios"] == {"73440": 3}
+    p = load(out / "estado" / "2024_prefeito_t1.json")
+    assert all("municipios" not in c for c in p["candidatos"])      # cargo municipal: ja tem "cod"
+    m = load(out / "73440" / "2026_deputado_federal_t1.json")
+    assert all("municipios" not in c for c in m["candidatos"])      # so no arquivo estadual

@@ -7,7 +7,7 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
-from tocantins.config import PALMAS_DIR
+from tocantins.config import PALMAS_DIR, RAW
 from tocantins.validate import control, layer1, layer2, layer3, layer4
 from tocantins.validate.result import LayerResult, apply_exceptions, load_bu_columns, load_exceptions, write_report
 
@@ -35,8 +35,13 @@ def load_inputs(base: Path) -> dict[str, pd.DataFrame]:
 
 
 def run_all(base: Path, valid_dir: Path, raw_manifest: Path, palmas_dir: Path = PALMAS_DIR,
-            inputs: dict[str, pd.DataFrame] | None = None) -> list[LayerResult]:
-    """Roda camadas 1-4 e o controle; grava `camada<N>.json` e `divergencias_*.csv` em `valid_dir`."""
+            inputs: dict[str, pd.DataFrame] | None = None,
+            oficial_dir: Path = RAW / "oficial") -> list[LayerResult]:
+    """Roda camadas 1-4 e o controle; grava `camada<N>.json` e `divergencias_*.csv` em `valid_dir`.
+
+    A camada 4 reconfere os alvos de `camada4_oficial.json` contra a base atual, com os JSON
+    oficiais em cache em `oficial_dir` (sem rede).
+    """
     base, valid_dir = Path(base), Path(valid_dir)
     exc = load_exceptions(valid_dir / "excecoes.json")
     d = inputs or load_inputs(base)
@@ -47,7 +52,7 @@ def run_all(base: Path, valid_dir: Path, raw_manifest: Path, palmas_dir: Path = 
     results += layer1.run(raw_manifest, d["bu"], exc, exclusoes_path=base / "exclusoes.json")
     results += layer2.run(d["bu"], d["locais"], con, exc)
     results += layer3.run(d["bu"], d["munzona"], d["votacao_secao"], d["detalhe"], con, exc)
-    results += layer4.run(d["bu"], d["munzona"], valid_dir / VISUAL_FILE, exc)
+    results += layer4.run(d["bu"], d["munzona"], valid_dir / VISUAL_FILE, exc, oficial_dir)
     results.append(control.palmas_control(d["bu"], palmas_dir, exc))
     write_report(results, valid_dir)
     return results

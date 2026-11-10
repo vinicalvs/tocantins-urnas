@@ -54,7 +54,8 @@ def main() -> None:
         print(f"[{key}] {source.url}")
         entry = fetch(source, RAW, manifest_path)
         print(f"  {entry['size']:,} bytes, sha512 {entry['sha512'][:16]}...")
-        extract_once(key, Path(entry["path"]))
+        if Path(entry["path"]).suffix == ".zip":
+            extract_once(key, Path(entry["path"]))
 
 
 if __name__ == "__main__":

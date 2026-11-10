@@ -5,7 +5,7 @@
     {
       "check": "hash_manifest",
       "passed": true,
-      "n_checked": 16,
+      "n_checked": 18,
       "n_divergences": 0,
       "unregistered": 0
     },

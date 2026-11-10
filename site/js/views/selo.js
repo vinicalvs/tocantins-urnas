@@ -1,5 +1,5 @@
 // Selo de validacao: o que foi conferido, quando, e com quais excecoes.
-import { loadSelo, fmtInt } from '../data.js';
+import { loadSelo, loadIndex, fmtInt, dataBase } from '../data.js';
 import { escapeHtml } from '../analysis.js';
 
 const CAMADA = {
@@ -10,7 +10,7 @@ const CAMADA = {
   controle: 'Caso de controle: Palmas reproduz o projeto anterior',
 };
 
-export function render(selo) {
+export function render(selo, relatorios = []) {
   const ok = selo.status === 'ok';
   const data = new Date(selo.data).toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'short' });
   const camadas = Object.entries(selo.camadas || {}).map(([k, v]) => `<li>
@@ -45,11 +45,13 @@ export function render(selo) {
       <thead><tr><th scope="col">Camada</th><th scope="col">Teste</th><th scope="col">Resultado</th>
         <th scope="col" class="num">Verificados</th><th scope="col" class="num">Divergências</th></tr></thead>
       <tbody>${checks}</tbody></table></div>
-      <p class="muted">Relatórios completos e listas de divergências: <a href="../validacao/">pasta validacao</a>.</p></section>`;
+      ${relatorios.length ? `<details><summary>Relatórios completos e listas de divergências (${fmtInt(relatorios.length)} arquivos)</summary>
+        <ul>${relatorios.map((f) => `<li><a href="${escapeHtml(`${dataBase}/validacao/${encodeURIComponent(f)}`)}">${escapeHtml(f)}</a></li>`).join('')}</ul>
+      </details>` : ''}</section>`;
 }
 
 export async function view(app, route, stale) {
-  const selo = await loadSelo();
+  const [selo, index] = await Promise.all([loadSelo(), loadIndex()]);
   if (stale()) return;
-  app.innerHTML = render(selo);
+  app.innerHTML = render(selo, index.relatorios || []);
 }

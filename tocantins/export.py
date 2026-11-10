@@ -108,7 +108,8 @@ def _totais(d: pd.DataFrame) -> dict:
             "nulos_tecnicos": g("nulo_tecnico"), "validos": g("candidato") + g("legenda")}
 
 
-def _candidatos(d: pd.DataFrame, scope: _Scope, validos: int, por_municipio: bool) -> list[dict]:
+def _candidatos(d: pd.DataFrame, scope: _Scope, validos: int, por_municipio: bool,
+                com_municipios: bool = False) -> list[dict]:
     c = d[d["cat"] == "candidato"]
     keys = (["cd_municipio"] if por_municipio else []) + ["nr_votavel"]
     g = (c.groupby(keys, as_index=False)
@@ -123,6 +124,15 @@ def _candidatos(d: pd.DataFrame, scope: _Scope, validos: int, por_municipio: boo
         if por_municipio:
             item = {"cod": r.cd_municipio, **item}
         out.append(item)
+    if com_municipios and not scope.municipal:
+        # Cargo estadual: votos do candidato em cada municipio (tela Candidato no estado).
+        pm = c.groupby(["nr_votavel", "cd_municipio"])["votos"].sum()
+        pm = pm[pm > 0]
+        por_nr: dict[int, dict[str, int]] = {}
+        for (nr, mun), v in pm.items():
+            por_nr.setdefault(int(nr), {})[str(mun)] = int(v)
+        for item in out:
+            item["municipios"] = dict(sorted(por_nr.get(item["nr"], {}).items()))
     return out
 
 
@@ -225,14 +235,26 @@ def export_all(base: Path, out: Path, valid_dir: Path, ibge_dir: Path = RAW / "i
         tot = _totais(d)
         write(f"estado/{nome}", {
             "ano": ano, "cargo": cargo, "turno": turno, "totais": tot,
-            "candidatos": _candidatos(d, scope, tot["validos"], por_municipio=scope.municipal),
+            "candidatos": _candidatos(d, scope, tot["validos"], por_municipio=scope.municipal,
+                                     com_municipios=True),
             "partidos": _partidos(d), "municipios": _vencedores(d, scope)})
+
+    # Relatorios da validacao publicados junto dos dados (link do selo; spec 8.5).
+    # camada4_oficial.json (~4 MB) fica so no repositorio.
+    relatorios = sorted(p.name for p in valid_dir.glob("*")
+                        if p.is_file() and (p.name == "excecoes.json" or p.suffix == ".csv"
+                                            or (p.name.startswith("camada") and p.name != "camada4_oficial.json"
+                                                and p.suffix == ".json")))
+    (tmp / "validacao").mkdir()
+    for nome_rel in relatorios:
+        shutil.copyfile(valid_dir / nome_rel, tmp / "validacao" / nome_rel)
 
     ult = locais[locais["ano"] == locais["ano"].max()]
     ult = ult[ult["turno"] == 1].drop_duplicates(["cd_municipio", "zona", "secao"])
     eleitorado = ult.groupby("cd_municipio")["eleitores_secao"].sum()
     index = {"gerado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"),
              "selo": selo.get("status"),
+             "relatorios": relatorios,
              "municipios": [{"cod": m, "ibge": cw[m], "nome": nome_mun[m],
                              "eleitorado": int(eleitorado.get(m, 0)),
                              "disponivel": {a: {c: sorted(t) for c, t in cs.items()}

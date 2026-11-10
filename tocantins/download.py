@@ -77,6 +77,7 @@ def fetch(source: Source, raw_dir: Path, manifest_path: Path) -> dict:
     manifest_path = Path(manifest_path)
     raw_dir.mkdir(parents=True, exist_ok=True)
     final = raw_dir / source.filename
+    final.parent.mkdir(parents=True, exist_ok=True)
     manifest = _load_manifest(manifest_path)
 
     if final.exists():

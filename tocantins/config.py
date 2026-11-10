@@ -51,6 +51,13 @@ def _build() -> dict[str, Source]:
             _odsele(f"cand{a}", f"consulta_cand/consulta_cand_{ano}.zip"),
             _odsele(f"totaliz{a}", f"relatorio_resultado_totalizacao/Relatorio_Resultado_Totalizacao_{ano}_TO.zip"),
         ]
+    # IBGE (sem .sha512 publicado): lista de municipios e malha municipal do Tocantins (crosswalk e mapa).
+    _ibge = "https://servicodados.ibge.gov.br/api/"
+    sources += [
+        Source("ibge_municipios", _ibge + "v1/localidades/estados/17/municipios", None, "ibge/municipios_17.json"),
+        Source("ibge_malha", _ibge + "v3/malhas/estados/17?intrarregiao=municipio"
+               "&formato=application/vnd.geo+json&qualidade=minima", None, "ibge/malha_to.geojson"),
+    ]
     return {s.key: s for s in sources}
 
 

@@ -24,7 +24,8 @@ async function route() {
   const r = parseHash(location.hash);
   const load = views[r.view] || views.estado;
   for (const a of document.querySelectorAll('[data-nav]')) {
-    const on = a.dataset.nav === (r.view === 'candidato' ? 'municipio' : r.view);
+    const nav = r.view === 'candidato' ? (r.args[0] === 'estado' ? 'estado' : 'municipio') : r.view;
+    const on = a.dataset.nav === nav;
     if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   }
   const mine = ++token;

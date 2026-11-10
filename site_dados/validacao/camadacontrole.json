@@ -1,0 +1,13 @@
+{
+  "layer": "controle",
+  "passed": true,
+  "checks": [
+    {
+      "check": "palmas_turno1",
+      "passed": true,
+      "n_checked": 171501,
+      "n_divergences": 0,
+      "unregistered": 0
+    }
+  ]
+}

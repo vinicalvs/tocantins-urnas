@@ -65,3 +65,11 @@ test('selo.render groups exceptions by layer and check, causes collapsible', () 
   assert.match(html, /<details><summary>2 causas<\/summary>/);
   assert.match(html, /Camada 3 · b<\/strong> \(1 caso\): c3/);
 });
+
+test('selo.render links each published report file, not a bare directory', () => {
+  const html = renderSelo({ status: 'ok', data: '2026-11-10T12:00:00+00:00', camadas: {}, checks: [] },
+    ['camada1.json', 'excecoes.json']);
+  assert.ok(!html.includes('href="../validacao/"'));
+  assert.match(html, /href="[^"]*\/validacao\/camada1\.json"/);
+  assert.match(html, /href="[^"]*\/validacao\/excecoes\.json"/);
+});

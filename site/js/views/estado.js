@@ -3,6 +3,7 @@ import { loadIndex, loadEstado, loadMalha, fmtInt, fmtPct } from '../data.js';
 import { escapeHtml, electionOptions, electionKey, electionLabel, parseElection, MAJORITARIOS, CARGO_LABEL } from '../analysis.js';
 import { partyColor, hasSlot, OUTROS } from '../colors.js';
 import { createMap, choropleth, themeMode, cssVar } from '../map.js';
+import { candidatoHref } from './candidato.js';
 
 const swatch = (sg, mode) => `<span class="sw" style="background:${partyColor(sg, mode)}"></span>`;
 
@@ -55,7 +56,7 @@ function candidateTable(est, mode, sel) {
   const max = Math.max(...top.map((c) => c.votos), 1);
   const rows = top.map((c, i) => `<tr>
       <td class="num">${i + 1}</td>
-      <td><div class="who">${swatch(c.partido, mode)}<span class="name">${escapeHtml(c.nome)}</span></div>
+      <td><div class="who">${swatch(c.partido, mode)}<a class="name" href="${escapeHtml(candidatoHref(electionKey(sel), c))}">${escapeHtml(c.nome)}</a></div>
         <span class="muted">${escapeHtml(c.partido)} · ${escapeHtml(c.nr)}</span></td>
       <td>${c.eleito ? '<span class="badge">Eleito</span>' : ''}</td>
       <td class="num">${fmtInt(c.votos)}<div class="bar" style="width:${(100 * c.votos) / max}%"></div></td>

@@ -172,22 +172,51 @@ def compare_oficial(bu: pd.DataFrame, doc: dict, ano: int, cargo: str, turno: in
              "data_consulta": consulta} for nome, site, b in pares]
 
 
-def _visual(path: Path) -> tuple[int, pd.DataFrame]:
-    """Ruling R6: sem o arquivo a conferencia visual nao foi feita e a camada reprova."""
+def _cached(url: str, cache_dir: Path) -> dict | None:
+    dst = Path(cache_dir) / url.removeprefix(OFICIAL_BASE + "/")
+    return json.loads(dst.read_bytes().decode("utf-8")) if dst.exists() else None
+
+
+def _visual(path: Path, bu: pd.DataFrame | None = None, cache_dir: Path | None = None) -> tuple[int, pd.DataFrame]:
+    """Ruling R6: sem o arquivo a conferencia visual nao foi feita e a camada reprova.
+
+    Com `cache_dir`, o arquivo so define os alvos: cada alvo e reconferido contra a base atual
+    usando o JSON oficial em cache (sem rede), para que uma base re-normalizada nao passe com
+    um resultado antigo.
+    """
     path = Path(path)
     if not path.exists():
         return 0, pd.DataFrame([{"motivo": "arquivo_ausente"}], columns=VISUAL_COLS)
     data = pd.DataFrame(json.loads(path.read_text(encoding="utf-8")))
     if data.empty:
         return 0, pd.DataFrame([{"motivo": "arquivo_vazio"}], columns=VISUAL_COLS)
+    if cache_dir is not None and bu is not None:
+        rows, faltam = [], []
+        alvos = data[["ano", "cargo", "turno", "cd_municipio", "fonte"]].drop_duplicates()
+        for a in alvos.itertuples(index=False):
+            doc = _cached(a.fonte, cache_dir)
+            mun = None if a.cd_municipio == "TO" else a.cd_municipio
+            if doc is None:
+                faltam.append({"cargo": a.cargo, "turno": a.turno, "cd_municipio": a.cd_municipio,
+                               "motivo": "cache_ausente"})
+                continue
+            rows += compare_oficial(bu, doc, int(a.ano), a.cargo, int(a.turno), mun)
+        data = pd.DataFrame(rows)
+        bad = data[data["ok"] != True].copy() if not data.empty else data  # noqa: E712
+        if not bad.empty:
+            bad["motivo"] = "divergente"
+        bad = pd.concat([bad.reindex(columns=VISUAL_COLS), pd.DataFrame(faltam, columns=VISUAL_COLS)],
+                        ignore_index=True)
+        return len(data) + len(faltam), bad
     bad = data[data["ok"] != True].copy()  # noqa: E712 (ok ausente/nulo tambem reprova)
     bad["motivo"] = "divergente"
     return len(data), bad.reindex(columns=VISUAL_COLS)
 
 
-def run(bu: pd.DataFrame, munzona: pd.DataFrame, visual_path: Path, exceptions: list[dict]) -> list[LayerResult]:
+def run(bu: pd.DataFrame, munzona: pd.DataFrame, visual_path: Path, exceptions: list[dict],
+        cache_dir: Path | None = None) -> list[LayerResult]:
     w = prefeito_winners(bu, munzona)
-    n_vis, vis = _visual(visual_path)
+    n_vis, vis = _visual(visual_path, bu, cache_dir)
     return [
         make_result(LAYER, "prefeito_winners", len(w), w[~w["ok"]], exceptions),
         make_result(LAYER, "visual_amostra", n_vis, vis, exceptions),
