@@ -8,6 +8,13 @@
       "n_checked": 171501,
       "n_divergences": 0,
       "unregistered": 0
+    },
+    {
+      "check": "palmas_censo",
+      "passed": true,
+      "n_checked": 1,
+      "n_divergences": 0,
+      "unregistered": 0
     }
   ]
 }

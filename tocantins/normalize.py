@@ -335,10 +335,15 @@ def _normalize_aux(
         raise
 
 
+def _par(col: str, outra: str, faixa: tuple, faixa_outra: tuple) -> str:
+    """Coordenada so vale se a do par tambem valer: lat e lon sao anulados juntos."""
+    return f"CASE WHEN {_coord(outra, *faixa_outra)} IS NULL THEN NULL ELSE {_coord(col, *faixa)} END"
+
+
 def normalize_locais(csv_files: list[Path], out: Path) -> int:
     """`base/locais.parquet`: uma linha por (ano, turno, municipio, zona, secao).
 
-    Lat/lon: virgula ou ponto decimal; -1, vazio ou fora de LAT_RANGE/LON_RANGE viram nulo
+    Lat/lon: virgula ou ponto decimal; -1, vazio ou fora de LAT_RANGE/LON_RANGE viram nulo, e os dois juntos
     (a linha e mantida). O CSV de 2024 e nacional e tem quebras de linha dentro de aspas:
     leitura com parallel=false e filtro SG_UF='TO'. Secoes agregadas sao mantidas.
     """
@@ -352,8 +357,8 @@ def normalize_locais(csv_files: list[Path], out: Path) -> int:
         {_ws('NM_LOCAL_VOTACAO')}               AS nm_local,
         {_ws('DS_ENDERECO')}                    AS endereco,
         {_ws('NM_BAIRRO')}                      AS bairro,
-        {_coord('NR_LATITUDE', *LAT_RANGE)}     AS lat,
-        {_coord('NR_LONGITUDE', *LON_RANGE)}    AS lon,
+        {_par('NR_LATITUDE', 'NR_LONGITUDE', LAT_RANGE, LON_RANGE)}  AS lat,
+        {_par('NR_LONGITUDE', 'NR_LATITUDE', LON_RANGE, LAT_RANGE)}  AS lon,
         CAST("QT_ELEITOR_SECAO" AS INTEGER)     AS eleitores_secao,
         {_clean('DS_TIPO_SECAO_AGREGADA')}      AS tipo_secao
     """

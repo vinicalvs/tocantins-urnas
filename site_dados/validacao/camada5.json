@@ -1,0 +1,48 @@
+{
+  "layer": "5",
+  "passed": true,
+  "checks": [
+    {
+      "check": "setores_integridade",
+      "passed": true,
+      "n_checked": 4117,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "fechamento_municipio",
+      "passed": true,
+      "n_checked": 139,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "ligacao_impl_disagreement",
+      "passed": true,
+      "n_checked": 8234,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "ligacao_consistencia",
+      "passed": true,
+      "n_checked": 8234,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "ligacao_credibilidade",
+      "passed": true,
+      "n_checked": 1829,
+      "n_divergences": 0,
+      "unregistered": 0
+    },
+    {
+      "check": "coligacoes_prefeitos",
+      "passed": true,
+      "n_checked": 139,
+      "n_divergences": 0,
+      "unregistered": 0
+    }
+  ]
+}

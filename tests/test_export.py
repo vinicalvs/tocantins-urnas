@@ -60,6 +60,7 @@ def base(tmp_path):
             (2, "Prefeito", "73440", 6, 10, "AA", "NÃO ELEITO"), (2, "Prefeito", "73440", 6, 20, "BB", "ELEITO"),
             (1, "Prefeito", "92410", 1, 10, "AA", "ELEITO"), (1, "Vereador", "92410", 1, 10111, "AA", None)]])
     munzona.to_parquet(b / "munzona.parquet")
+    censo_files(b)
     return b
 
 
@@ -233,3 +234,157 @@ def test_state_file_of_statewide_cargo_has_votes_per_municipality(base, tmp_path
     assert all("municipios" not in c for c in p["candidatos"])      # cargo municipal: ja tem "cod"
     m = load(out / "73440" / "2026_deputado_federal_t1.json")
     assert all("municipios" not in c for c in m["candidatos"])      # so no arquivo estadual
+
+
+# ------------------------------------------------------------ Censo, ficha do local e conjuntura
+from tocantins.censo import INDICADORES  # noqa: E402
+
+
+def censo_files(b):
+    """Setores S1,S2 (Palmas) e S3 (Araguaina); 6-1012 crivel, 7-1012 nao crivel, 1-1001 crivel."""
+    setores = []
+    for cd, mun, mor in [("172100005000001", "1721000", 100), ("172100005000002", "1721000", 400),
+                         ("170210905000001", "1702109", 80)]:
+        r = {"cd_setor": cd, "cd_mun_ibge": mun, "cx": 0.0, "cy": 0.0, "area_km2": 1.0, "moradores": mor,
+             "domicilios": mor // 3, "sigilo": False, "densidade": float(mor)}
+        for ind in INDICADORES:
+            r[f"{ind}_num"], r[f"{ind}_den"] = mor / 2, mor
+        setores.append(r)
+    pd.DataFrame(setores).to_parquet(b / "censo_setor.parquet")
+    pd.DataFrame([{"cd_mun_ibge": "1721000", "populacao": 500, "area_km2": 2227.3, "densidade": 0.2,
+                   "pib_per_capita": 39484.1, "ano_pib": 2022},
+                  {"cd_mun_ibge": "1702109", "populacao": 80, "area_km2": 4000.0, "densidade": 0.02,
+                   "pib_per_capita": 30000.0, "ano_pib": 2022}]).to_parquet(b / "ibge_municipio.parquet")
+    links, creds, areas = [], [], []
+    for ano in (2024, 2026):
+        for cd, mun, lid, eleit, mor in [("172100005000001", "73440", "6-1012", 100, 100),
+                                         ("172100005000002", "73440", "7-1012", 100, 400),
+                                         ("170210905000001", "92410", "1-1001", 100, 80)]:
+            for impl in ("numpy", "geopandas"):
+                links.append({"cd_setor": cd, "cd_municipio": mun, "local_id": lid, "dist_m": 1.0, "impl": impl,
+                              "ano": ano})
+            creds.append({"local_id": lid, "cd_municipio": mun, "eleitores": eleit, "moradores": mor,
+                          "razao": eleit / mor, "credivel": 0.4 <= eleit / mor <= 1.6, "especial": False,
+                          "lat": -10.0, "lon": -48.0, "ano": ano})
+            areas.append({"cd_municipio": mun, "local_id": lid, "area_id": lid, "ano": ano})
+    pd.DataFrame(links).to_parquet(b / "ligacao_setor_local.parquet")
+    pd.DataFrame(creds).to_parquet(b / "local_credibilidade.parquet")
+    pd.DataFrame(areas).to_parquet(b / "area_votacao.parquet")
+    pd.DataFrame([{"ano": a, "cargo": c, "nr_candidato": nr, "sg_partido": sg, "partidos": ps}
+                  for a, c, nr, sg, ps in [(2024, "Prefeito", 10, "AA", ["AA"]), (2024, "Prefeito", 20, "BB", ["BB"]),
+                                           (2026, "Governador", 45, "AA", ["AA", "CC"]),
+                                           (2026, "Governador", 22, "BB", ["BB"]),
+                                           (2026, "Senador", 451, "AA", ["AA"]), (2026, "Senador", 222, "BB", ["BB"]),
+                                           (2026, "Senador", 333, "CC", ["CC"])]]
+                 ).to_parquet(b / "coligacoes.parquet")
+
+
+@pytest.fixture
+def base26(base):
+    """Acrescenta 2026 (Governador t1/t2, Senador, Deputado Federal) e 17 vereadores em Araguaina."""
+    bu = pd.read_parquet(base / "bu_secao.parquet")
+    novos = (secao(2024, 1, "Vereador", 13, "92410", 1, 2, 1001,
+                   {("Nominal", 10200 + i, "AA"): 20 - i for i in range(17)})
+             + secao(2026, 1, "Deputado Federal", 6, "92410", 1, 1, 1001,
+                     {("Nominal", 1000 + i, "AA"): 10 - i for i in range(7)}))
+    for mun, z, s, loc in [("73440", 6, 1, 1012), ("92410", 1, 1, 1001)]:
+        novos += secao(2026, 1, "Governador", 3, mun, z, s, loc, {("Nominal", 45, "AA"): 30, ("Nominal", 22, "BB"): 20})
+        novos += secao(2026, 2, "Governador", 3, mun, z, s, loc, {("Nominal", 45, "AA"): 25, ("Nominal", 22, "BB"): 30})
+        novos += secao(2026, 1, "Senador", 5, mun, z, s, loc, {("Nominal", 451, "AA"): 30, ("Nominal", 222, "BB"): 20,
+                                                                  ("Nominal", 333, "CC"): 25})
+    novos += secao(2026, 1, "Governador", 3, "92410", 1, 2, 1001, {("Nominal", 45, "AA"): 1})
+    novos += secao(2026, 1, "Governador", 3, "92410", 1, 3, 1001, {("Nominal", 22, "BB"): 1})
+    pd.concat([bu, pd.DataFrame(novos)], ignore_index=True).to_parquet(base / "bu_secao.parquet")
+    loc = pd.read_parquet(base / "locais.parquet")
+    extra = [{"ano": a, "turno": t, "cd_municipio": m, "zona": z, "secao": s, "local": l, "nm_local": f"ESCOLA {z}-{l}",
+              "endereco": "RUA A", "bairro": "CENTRO", "lat": la, "lon": lo, "eleitores_secao": 100,
+              "tipo_secao": "Principal"}
+             for a, t, m, z, s, l, la, lo in [
+                 (2024, 1, "92410", 1, 2, 1001, -7.19, -48.2),
+                 (2026, 1, "73440", 6, 1, 1012, -10.18, -48.33), (2026, 2, "73440", 6, 1, 1012, -10.18, -48.33),
+                 (2026, 1, "92410", 1, 1, 1001, -7.0, None), (2026, 1, "92410", 1, 2, 1001, -7.3, -48.4),
+                 (2026, 1, "92410", 1, 3, 1001, -7.5, -48.5), (2026, 2, "92410", 1, 1, 1001, -7.3, -48.4)]]
+    pd.concat([loc, pd.DataFrame(extra)], ignore_index=True).to_parquet(base / "locais.parquet")
+    mz = pd.read_parquet(base / "munzona.parquet")
+    rows = [(2024, 1, "Vereador", "92410", 1, 10200 + i, "AA", None) for i in range(17)]
+    rows += [(2026, 1, "Deputado Federal", "92410", 1, 1000 + i, "AA", None) for i in range(7)]
+    for mun, z in [("73440", 6), ("92410", 1)]:
+        rows += [(2026, 1, "Governador", mun, z, 45, "AA", "2º TURNO"), (2026, 1, "Governador", mun, z, 22, "BB", "2º TURNO"),
+                 (2026, 2, "Governador", mun, z, 45, "AA", "NÃO ELEITO"), (2026, 2, "Governador", mun, z, 22, "BB", "ELEITO"),
+                 (2026, 1, "Senador", mun, z, 451, "AA", "ELEITO"), (2026, 1, "Senador", mun, z, 333, "CC", "ELEITO"),
+                 (2026, 1, "Senador", mun, z, 222, "BB", "NÃO ELEITO")]
+    mz = pd.concat([mz, pd.DataFrame([{"ano": a, "turno": t, "cargo": c, "cd_municipio": m, "zona": z,
+                                       "nr_candidato": nr, "nm_candidato": f"NOME {nr}", "sg_partido": sg,
+                                       "votos_nominais": 0, "situacao_turno": st}
+                                      for a, t, c, m, z, nr, sg, st in rows])], ignore_index=True)
+    mz.to_parquet(base / "munzona.parquet")
+    return base
+
+
+def test_governador_and_senador_exported_with_t2_where_exists(base26, tmp_path, ibge_dir):
+    out, _ = run(base26, tmp_path, ibge_dir)
+    for f in ("73440/2026_governador_t1.json", "73440/2026_governador_t2.json", "92410/2026_senador_t1.json",
+              "estado/2026_governador_t2.json", "estado/2026_senador_t1.json"):
+        assert (out / f).exists(), f
+    idx = {m["cod"]: m for m in load(out / "index.json")["municipios"]}
+    assert idx["73440"]["disponivel"]["2026"]["governador"] == [1, 2]
+    assert idx["73440"]["disponivel"]["2026"]["senador"] == [1]
+
+
+def _ficha(out, mun):
+    return {l["id"]: l for l in load(out / mun / "locais_ficha.json")["locais"]}
+
+
+def test_locais_ficha_limits_and_keys(base26, tmp_path, ibge_dir):
+    out, _ = run(base26, tmp_path, ibge_dir)
+    l = _ficha(out, "92410")["1-1001"]
+    assert set(l) == {"id", "nome", "bairro", "lat", "lon", "anos", "cargos", "entorno"}
+    assert set(l["anos"]) == {"2024", "2026"} and set(l["anos"]["2024"]) == {"aptos", "comparecimento"}
+    assert len(l["cargos"]["2024-vereador-1"]) == 15 and len(l["cargos"]["2026-deputado_federal-1"]) == 5
+    gov = l["cargos"]["2026-governador-1"]
+    assert [c["nr"] for c in gov] == [45, 22] and set(gov[0]) == {"nr", "nome", "partido", "votos", "pct"}
+    assert "2026-governador-2" in l["cargos"] and "2026-senador-1" in l["cargos"]
+
+
+def test_ficha_entorno_null_when_not_credible(base26, tmp_path, ibge_dir):
+    out, _ = run(base26, tmp_path, ibge_dir)
+    f = _ficha(out, "73440")
+    assert f["7-1012"]["entorno"] is None
+    e = f["6-1012"]["entorno"]
+    assert e["credivel"] is True and e["area_id"] == "6-1012" and e["moradores"] == 100
+    assert set(e["indicadores"]) == set(INDICADORES) and e["indicadores"]["alfabetizacao_15"] == 50.0
+
+
+def test_areas_file_only_credible_and_votes_sum_to_area_validos(base26, tmp_path, ibge_dir):
+    out, _ = run(base26, tmp_path, ibge_dir)
+    a = load(out / "conjuntura" / "areas_2024_prefeito.json")
+    assert set(a["indicadores"]) == set(INDICADORES)
+    assert {(x["cod"], x["id"]) for x in a["areas"]} == {("73440", "6-1012"), ("92410", "1-1001")}
+    for x in a["areas"]:
+        assert sum(x["partidos"].values()) == x["validos"] and x["validos"] > 0
+    assert (out / "conjuntura" / "areas_2026_senador.json").exists()
+    mi = {m["cod"]: m for m in load(out / "conjuntura" / "municipios_indicadores.json")}
+    assert mi["73440"]["ind"]["alfabetizacao_15"] == 50.0 and set(mi["73440"]["aptos"]) == {"2024", "2026"}
+
+
+def test_prefeitos_file_has_three_keys(base26, tmp_path, ibge_dir):
+    out, _ = run(base26, tmp_path, ibge_dir)
+    p = load(out / "conjuntura" / "prefeitos_2026.json")
+    assert set(p) == {"governador-1", "governador-2", "senador-1"}
+    pal = {r["cod"]: r for r in p["governador-1"]}["73440"]
+    assert pal["prefeito"] == {"nome": "NOME 20", "partido": "BB"} and pal["status"] == "nao_entregou"
+    assert {r["cod"]: r for r in p["governador-2"]}["73440"]["status"] == "entregou"
+    ibge = load(out / "73440" / "ibge.json")
+    assert ibge == {"populacao": 500, "area_km2": 2227.3, "densidade": 0.2, "pib_per_capita": 39484.1, "ano_pib": 2022}
+
+
+def test_goiatins_note_in_index(base, tmp_path, ibge_dir):
+    out, _ = run(base, tmp_path, ibge_dir)
+    assert all(m["nota"] is None for m in load(out / "index.json")["municipios"])
+    assert "25/10/2026" in export.nota_municipio("GOIATINS") and export.nota_municipio("PALMAS") is None
+
+
+def test_local_coords_from_one_complete_row(base26, tmp_path, ibge_dir):
+    out, _ = run(base26, tmp_path, ibge_dir)
+    loc = {l["id"]: l for l in load(out / "92410" / "2026_governador_t1.json")["locais"]}["1-1001"]
+    assert (loc["lat"], loc["lon"]) == (-7.3, -48.4)          # secao 1 incompleta; secao 2 e a menor completa

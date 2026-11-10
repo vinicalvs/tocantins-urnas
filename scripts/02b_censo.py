@@ -40,7 +40,7 @@ def main() -> None:
         ar = ligacao.areas(a, setores, loc).assign(ano=ano)
         areas_.append(ar)
         print(f"{ano}: {len(loc)} locais ({int(loc['especial'].sum())} especiais), {len(a)} setores ligados, "
-              f"{cred['credivel'].mean():.0%} locais criveis, {ar['area_id'].nunique()} areas")
+              f"{cred['credivel'].mean():.0%} locais criveis, {len(ar[["cd_municipio", "area_id"]].drop_duplicates())} areas")
     pd.concat(links, ignore_index=True).to_parquet(BASE / "ligacao_setor_local.parquet")
     pd.concat(creds, ignore_index=True).to_parquet(BASE / "local_credibilidade.parquet")
     pd.concat(areas_, ignore_index=True).to_parquet(BASE / "area_votacao.parquet")

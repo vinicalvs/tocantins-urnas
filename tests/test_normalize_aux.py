@@ -52,8 +52,15 @@ def test_locais_comma_decimal_and_missing_coords(tmp_path):
     assert got[3] == (None, None)
     assert got[4] == (-10.1528383, -48.2)
     assert got[5] == (None, None)
-    assert got[6][0] == -10.2 and got[6][1] is None
+    assert got[6] == (None, None)  # lat e lon anulados juntos
     assert got[7] == (None, None)
+
+
+def test_latlon_nulled_together(tmp_path):
+    rows = [locais_row(NR_SECAO="1", NR_LATITUDE="-10,2", NR_LONGITUDE=""),
+            locais_row(NR_SECAO="2", NR_LATITUDE="-99", NR_LONGITUDE="-48,3")]
+    _, out = run_locais(tmp_path, rows)
+    assert q(out, "select lat, lon from {p} order by secao") == [(None, None), (None, None)]
 
 
 def test_locais_same_local_number_in_two_zones_kept_distinct(tmp_path):

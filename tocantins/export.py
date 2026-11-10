@@ -7,9 +7,13 @@ Regras (Rulings R31-R33):
   valida (partido federado sem candidato proprio recebe legenda valida). `validos` = votos apurados
   para candidatos da lista + legenda; inclui votos sub judice/anulados, por isso pode passar o
   "validos" exibido pelo TSE em poucos votos.
-- Cargos exportados: Prefeito e Vereador (2024), Deputado Federal e Deputado Estadual (2026).
+- Cargos exportados: Prefeito e Vereador (2024); Deputado Federal, Deputado Estadual, Governador e Senador (2026).
+- Coordenadas do local: a linha completa (lat e lon) de menor secao.
+- Conjuntura (spec secao 2): ficha do local, IBGE do municipio, entrega dos prefeitos e areas de votacao
+  criveis com indicadores do Censo 2022 e votos por cargo (turno 1).
 """
 import json
+import math
 import os
 import shutil
 import unicodedata
@@ -18,12 +22,20 @@ from pathlib import Path
 
 import pandas as pd
 
-from tocantins import crosswalk
+from tocantins import conjuntura, crosswalk
+from tocantins.censo import INDICADORES
 from tocantins.config import RAW
+from tocantins.ligacao import FAIXA
 
-CARGOS = {2024: ["Prefeito", "Vereador"], 2026: ["Deputado Federal", "Deputado Estadual"]}
+CARGOS = {2024: ["Prefeito", "Vereador"], 2026: ["Deputado Federal", "Deputado Estadual", "Governador", "Senador"]}
 MUNICIPAIS = {"Prefeito", "Vereador"}
-BASE_FILES = ["bu_secao.parquet", "locais.parquet", "munzona.parquet"]
+CENSO_FILES = ["censo_setor.parquet", "ibge_municipio.parquet", "ligacao_setor_local.parquet",
+               "local_credibilidade.parquet", "area_votacao.parquet", "coligacoes.parquet"]
+BASE_FILES = ["bu_secao.parquet", "locais.parquet", "munzona.parquet"] + CENSO_FILES
+# Ficha do local: quantos candidatos por cargo (ausente = todos).
+LIMITE_FICHA = {"Vereador": 15, "Deputado Federal": 5, "Deputado Estadual": 5}
+ENTREGA = [("Governador", 1), ("Governador", 2), ("Senador", 1)]
+NOTAS = {"GOIATINS": "Houve eleição suplementar para prefeito em 25/10/2026; ela não faz parte destes dados."}
 BU_COLUMNS = ["ano", "turno", "cargo", "cd_municipio", "nm_municipio", "zona", "secao", "local", "aptos",
               "comparecimento", "abstencoes", "tipo_votavel", "nr_votavel", "nm_votavel", "sg_partido", "votos"]
 
@@ -147,8 +159,10 @@ def _partidos(d: pd.DataFrame) -> list[dict]:
 def _locais(d: pd.DataFrame, loc: pd.DataFrame) -> tuple[list[dict], int]:
     attrs = loc.merge(d[["zona", "secao", "local"]].drop_duplicates(), on=["zona", "secao"],
                       suffixes=("_cad", ""))
-    attrs = (attrs.sort_values(["lat"], na_position="last")
-             .groupby(["zona", "local"]).first()[["nm_local", "endereco", "bairro", "lat", "lon"]])
+    attrs = attrs.sort_values(["zona", "local", "secao"])
+    comp = (attrs.dropna(subset=["lat", "lon"]).drop_duplicates(["zona", "local"])
+            .set_index(["zona", "local"])[["lat", "lon"]])
+    attrs = attrs.groupby(["zona", "local"]).first()[["nm_local", "endereco", "bairro"]].join(comp)
     secs = d.drop_duplicates(["zona", "secao"]).groupby(["zona", "local"])[["aptos", "comparecimento"]].sum()
     lab = d["nr_votavel"].astype(str).where(d["cat"] == "candidato", d["cat"])
     lab = lab.where(d["cat"] != "legenda", "legenda:" + d["sg_partido"].astype(str))
@@ -185,6 +199,95 @@ def _vencedores(d: pd.DataFrame, scope: _Scope) -> list[dict]:
     return out
 
 
+def nota_municipio(nome: str) -> str | None:
+    return NOTAS.get(crosswalk.normalize_name(nome))
+
+
+def _py(v):
+    """Valor JSON: numpy -> python, NaN/NA -> None, float inteiro -> int."""
+    if v is None or v is pd.NA:
+        return None
+    if hasattr(v, "item"):
+        v = v.item()
+    if isinstance(v, float):
+        if math.isnan(v):
+            return None
+        return int(v) if v.is_integer() else round(v, 2)
+    return v
+
+
+def _ind(s: pd.DataFrame) -> dict:
+    """{indicador: % (1 casa)} somando numeradores e denominadores dos setores."""
+    out = {}
+    for i in INDICADORES:
+        den = float(s[f"{i}_den"].sum()) if len(s) else 0.0
+        out[i] = round(100 * float(s[f"{i}_num"].sum()) / den, 1) if den else None
+    return out
+
+
+def _local_id(d: pd.DataFrame) -> pd.Series:
+    return d["zona"].astype(int).astype(str) + "-" + d["local"].astype(int).astype(str)
+
+
+def _ficha_cargo(dm: pd.DataFrame, limite: int | None) -> dict[str, list[dict]]:
+    """Por local: candidatos mais votados com % sobre os validos do local."""
+    lid = _local_id(dm)
+    val = dm[dm["cat"].isin(["candidato", "legenda"])].groupby(lid)["votos"].sum()
+    c = dm[(dm["cat"] == "candidato") & (dm["votos"] > 0)].assign(lid=lid)
+    c = (c.groupby(["lid", "nr_votavel"], as_index=False)
+         .agg(votos=("votos", "sum"), nome=("nm_votavel", "first"), partido=("sg_partido", "first"))
+         .sort_values(["lid", "votos", "nr_votavel"], ascending=[True, False, True]))
+    out = {}
+    for k, g in c.groupby("lid", sort=False):
+        v = int(val.get(k, 0))
+        g = g.head(limite) if limite else g
+        out[k] = [{"nr": int(r.nr_votavel), "nome": r.nome, "partido": r.partido, "votos": int(r.votos),
+                   "pct": round(100 * r.votos / v, 1) if v else 0.0} for r in g.itertuples()]
+    return out
+
+
+def _areas_cargo(d: pd.DataFrame, ano: int, setores, link, cred, areas) -> list[dict]:
+    """Areas de votacao criveis (eleitores/moradores na FAIXA) com votos do cargo e indicadores."""
+    c = cred[cred["ano"] == ano][["cd_municipio", "local_id", "eleitores", "moradores"]]
+    ar = areas[areas["ano"] == ano].merge(c, on=["cd_municipio", "local_id"])
+    tot = ar.groupby(["cd_municipio", "area_id"])[["eleitores", "moradores"]].sum()
+    razao = tot["eleitores"] / tot["moradores"].where(tot["moradores"] > 0)
+    tot = tot[razao.between(*FAIXA)]
+    area_de = {(m, l): a for m, l, a in zip(ar["cd_municipio"], ar["local_id"], ar["area_id"])}
+    lk = link[link["ano"] == ano]
+    lk = lk.assign(area=[area_de.get(k) for k in zip(lk["cd_municipio"], lk["local_id"])])
+    set_area = {k: g for k, g in lk.merge(setores, on="cd_setor").groupby(["cd_municipio", "area"])}
+    d = d.assign(area=[area_de.get(k) for k in zip(d["cd_municipio"], _local_id(d))])
+    out = []
+    for (mun, area), g in d.dropna(subset=["area"]).groupby(["cd_municipio", "area"], sort=True):
+        if (mun, area) not in tot.index:
+            continue
+        t = _totais(g)
+        cand = g[g["cat"] == "candidato"].groupby("nr_votavel")["votos"].sum()
+        part = g[g["cat"].isin(["candidato", "legenda"])].groupby("sg_partido")["votos"].sum()
+        out.append({"id": area, "cod": mun, "eleitores": int(tot.loc[(mun, area), "eleitores"]),
+                    "moradores": int(tot.loc[(mun, area), "moradores"]), "aptos": t["aptos"],
+                    "comparecimento": t["comparecimento"], "validos": t["validos"],
+                    "ind": _ind(set_area.get((mun, area), setores.iloc[:0])),
+                    "votos": {str(int(k)): int(v) for k, v in cand.items() if v},
+                    "partidos": {str(k): int(v) for k, v in part.items() if v}})
+    return out
+
+
+def _entrega(bu: pd.DataFrame, munzona: pd.DataFrame, coligacoes: pd.DataFrame) -> dict:
+    pref = conjuntura.prefeitos(None, munzona)
+    out = {}
+    for cargo, turno in ENTREGA:
+        rows = []
+        for r in conjuntura.entrega(bu, pref, coligacoes, cargo, turno).to_dict("records"):
+            r = {k: _py(v) for k, v in r.items()}
+            rows.append({"cod": r.pop("cd_municipio"),
+                         "prefeito": {"nome": r.pop("prefeito_nome"), "partido": r.pop("prefeito_partido")},
+                         **{k: v for k, v in r.items() if k != "prefeito_nr"}})
+        out[f"{slug(cargo)}-{turno}"] = rows
+    return out
+
+
 def export_all(base: Path, out: Path, valid_dir: Path, ibge_dir: Path = RAW / "ibge",
                n_municipios: int = crosswalk.N_MUNICIPIOS) -> dict:
     """Escreve site_dados/ inteiro numa pasta temporaria e troca no fim (sem restos antigos)."""
@@ -214,6 +317,9 @@ def export_all(base: Path, out: Path, valid_dir: Path, ibge_dir: Path = RAW / "i
             stats["maior"] = (rel, n)
 
     disponivel: dict[str, dict] = {m: {} for m in cw}
+    ficha: dict[str, dict[str, dict]] = {m: {} for m in cw}
+    t1: dict[tuple[int, str], pd.DataFrame] = {}
+    mun_tot: dict[str, dict[str, dict]] = {m: {} for m in cw}
     sem_coord: dict[str, set] = {m: set() for m in cw}
     nome_mun = dict(zip(nomes["cd_municipio"], nomes["nm_municipio"]))
     for (ano, cargo, turno), d in bu.groupby(["ano", "cargo", "turno"]):
@@ -227,17 +333,68 @@ def export_all(base: Path, out: Path, valid_dir: Path, ibge_dir: Path = RAW / "i
             tot = _totais(dm)
             locs, _ = _locais(dm, lt[lt["cd_municipio"] == mun])
             sem_coord[mun] |= {(ano, l["id"]) for l in locs if l["lat"] is None}
+            votos_local = _ficha_cargo(dm, LIMITE_FICHA.get(cargo))
+            for l in locs:
+                f = ficha[mun].setdefault(l["id"], {"id": l["id"], "nome": None, "bairro": None, "lat": None,
+                                                    "lon": None, "anos": {}, "cargos": {}, "entorno": None})
+                for k in ("nome", "bairro"):
+                    f[k] = l[k] or f[k]
+                if l["lat"] is not None:
+                    f["lat"], f["lon"] = l["lat"], l["lon"]
+                if turno == 1:
+                    f["anos"][str(ano)] = {"aptos": l["aptos"], "comparecimento": l["comparecimento"]}
+                f["cargos"][f"{ano}-{slug(cargo)}-{turno}"] = votos_local.get(l["id"], [])
+            if turno == 1:
+                mun_tot[mun][str(ano)] = {"aptos": tot["aptos"], "comparecimento": tot["comparecimento"]}
             write(f"{mun}/{nome}", {
                 "municipio": {"cod": mun, "nome": nome_mun[mun]}, "ano": ano, "cargo": cargo, "turno": turno,
                 "totais": tot, "candidatos": _candidatos(dm, scope, tot["validos"], por_municipio=False),
                 "partidos": _partidos(dm), "locais": locs})
             disponivel[mun].setdefault(str(ano), {}).setdefault(slug(cargo), []).append(turno)
+        if turno == 1:
+            t1[(ano, cargo)] = d
         tot = _totais(d)
         write(f"estado/{nome}", {
             "ano": ano, "cargo": cargo, "turno": turno, "totais": tot,
             "candidatos": _candidatos(d, scope, tot["validos"], por_municipio=scope.municipal,
                                      com_municipios=True),
             "partidos": _partidos(d), "municipios": _vencedores(d, scope)})
+
+    # Censo, ficha do local e conjuntura
+    setores = pd.read_parquet(base / "censo_setor.parquet")
+    link = pd.read_parquet(base / "ligacao_setor_local.parquet")
+    link = link[link["impl"] == "numpy"]
+    cred = pd.read_parquet(base / "local_credibilidade.parquet")
+    areas = pd.read_parquet(base / "area_votacao.parquet")
+    ibge_mun = pd.read_parquet(base / "ibge_municipio.parquet").set_index("cd_mun_ibge")
+    setores_de = {k: g["cd_setor"].tolist() for k, g in link.groupby(["ano", "cd_municipio", "local_id"])}
+    set_idx = setores.set_index("cd_setor")
+    cred_de = {(int(r["ano"]), r["cd_municipio"], r["local_id"]): r for r in cred.to_dict("records")}
+    area_de = {(int(a), m, l): x for a, m, l, x in zip(areas["ano"], areas["cd_municipio"], areas["local_id"],
+                                                       areas["area_id"])}
+    for mun in sorted(cw):
+        for lid, f in ficha[mun].items():
+            ano_e = 2026 if (2026, mun, lid) in cred_de else 2024
+            c = cred_de.get((ano_e, mun, lid))
+            if c is not None and c["credivel"]:
+                s = set_idx.loc[setores_de.get((ano_e, mun, lid), [])]
+                f["entorno"] = {"credivel": True, "ano_ligacao": ano_e, "area_id": area_de.get((ano_e, mun, lid)),
+                                "moradores": int(c["moradores"]), "indicadores": _ind(s)}
+        if ficha[mun]:
+            write(f"{mun}/locais_ficha.json", {"locais": [ficha[mun][k] for k in sorted(ficha[mun])]})
+        if cw[mun] in ibge_mun.index:
+            im = ibge_mun.loc[cw[mun]]
+            write(f"{mun}/ibge.json", {k: _py(im[k]) for k in ("populacao", "area_km2", "densidade",
+                                                                "pib_per_capita", "ano_pib")})
+    for (ano, cargo), d in sorted(t1.items()):
+        write(f"conjuntura/areas_{ano}_{slug(cargo)}.json",
+              {"indicadores": list(INDICADORES), "areas": _areas_cargo(d, ano, setores, link, cred, areas)})
+    por_ibge = {k: _ind(g) for k, g in setores.groupby("cd_mun_ibge")}
+    write("conjuntura/municipios_indicadores.json",
+          [{"cod": m, "ind": por_ibge.get(cw[m], _ind(setores.iloc[:0])),
+            "aptos": {a: v["aptos"] for a, v in sorted(mun_tot[m].items())},
+            "comparecimento": {a: v["comparecimento"] for a, v in sorted(mun_tot[m].items())}} for m in sorted(cw)])
+    write("conjuntura/prefeitos_2026.json", _entrega(bu, munzona, pd.read_parquet(base / "coligacoes.parquet")))
 
     # Relatorios da validacao publicados junto dos dados (link do selo; spec 8.5).
     # camada4_oficial.json (~4 MB) fica so no repositorio.
@@ -259,7 +416,8 @@ def export_all(base: Path, out: Path, valid_dir: Path, ibge_dir: Path = RAW / "i
                              "eleitorado": int(eleitorado.get(m, 0)),
                              "disponivel": {a: {c: sorted(t) for c, t in cs.items()}
                                             for a, cs in sorted(disponivel[m].items())},
-                             "locais_sem_coordenadas": len(sem_coord[m])}
+                             "locais_sem_coordenadas": len(sem_coord[m]),
+                             "nota": nota_municipio(nome_mun[m])}
                             for m in sorted(cw, key=lambda k: nome_mun[k])]}
     write("index.json", index)
     write("selo_validacao.json", selo)
