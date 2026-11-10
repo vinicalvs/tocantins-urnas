@@ -1,0 +1,3420 @@
+{
+  "status": "ok",
+  "data": "2026-11-10T12:59:47+00:00",
+  "camadas": {
+    "1": true,
+    "2": true,
+    "3": true,
+    "4": true,
+    "controle": true
+  },
+  "falhas": [],
+  "checks": [
+    {
+      "layer": "1",
+      "check": "hash_manifest",
+      "passed": true,
+      "n_checked": 16,
+      "n_divergences": 0
+    },
+    {
+      "layer": "1",
+      "check": "row_counts",
+      "passed": true,
+      "n_checked": 4,
+      "n_divergences": 0
+    },
+    {
+      "layer": "1",
+      "check": "municipios_139",
+      "passed": true,
+      "n_checked": 10,
+      "n_divergences": 0
+    },
+    {
+      "layer": "1",
+      "check": "no_duplicates",
+      "passed": true,
+      "n_checked": 733076,
+      "n_divergences": 0
+    },
+    {
+      "layer": "1",
+      "check": "t2_subset_of_t1",
+      "passed": true,
+      "n_checked": 139,
+      "n_divergences": 0
+    },
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "passed": true,
+      "n_checked": 7,
+      "n_divergences": 7
+    },
+    {
+      "layer": "2",
+      "check": "votos_eq_comparecimento",
+      "passed": true,
+      "n_checked": 39659,
+      "n_divergences": 0
+    },
+    {
+      "layer": "2",
+      "check": "comparecimento_mais_abst_eq_aptos",
+      "passed": true,
+      "n_checked": 39659,
+      "n_divergences": 0
+    },
+    {
+      "layer": "2",
+      "check": "secoes_bu_eq_locais",
+      "passed": true,
+      "n_checked": 13945,
+      "n_divergences": 0
+    },
+    {
+      "layer": "2",
+      "check": "urnas_nao_apuradas",
+      "passed": true,
+      "n_checked": 39659,
+      "n_divergences": 0
+    },
+    {
+      "layer": "2",
+      "check": "impl_disagreement",
+      "passed": true,
+      "n_checked": 4,
+      "n_divergences": 0
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "passed": true,
+      "n_checked": 50625,
+      "n_divergences": 197
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_votacao_secao",
+      "passed": true,
+      "n_checked": 686283,
+      "n_divergences": 0
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_detalhe",
+      "passed": true,
+      "n_checked": 1261,
+      "n_divergences": 0
+    },
+    {
+      "layer": "3",
+      "check": "cobertura_fontes",
+      "passed": true,
+      "n_checked": 30,
+      "n_divergences": 2
+    },
+    {
+      "layer": "3",
+      "check": "impl_disagreement",
+      "passed": true,
+      "n_checked": 4,
+      "n_divergences": 0
+    },
+    {
+      "layer": "4",
+      "check": "prefeito_winners",
+      "passed": true,
+      "n_checked": 140,
+      "n_divergences": 0
+    },
+    {
+      "layer": "4",
+      "check": "visual_amostra",
+      "passed": true,
+      "n_checked": 11840,
+      "n_divergences": 0
+    },
+    {
+      "layer": "controle",
+      "check": "palmas_turno1",
+      "passed": true,
+      "n_checked": 171501,
+      "n_divergences": 0
+    }
+  ],
+  "hashes": {
+    "bu24_t1": "73df21872b4e445591e1521ad6c70efb3907d3c4f39e1ddeb41cf9af814cc7ed53415a0f632e1b97bee5c0506675259cfff6f1e770ca8b20cc43d36a8cfffe68",
+    "bu24_t2": "60fcc2842ab50a4862563815dea9d7357b23554da5eadb9761dc6713a058f95a31c9c439a33df58e7b083a8cf577e6b151f3c4f6ff37bea8f73aeb6ae20fbc9f",
+    "bu26_t1": "b936b450693c00741226bd1b6c09843c6671e41abafa393ef31606a7038272011b9030ec8d62a8f61d7ff31f532b7979321cac456bef3b44925e0b00026bc614",
+    "bu26_t2": "e667f9b68bb71065fec219cbf18b4621b0062ced6b09dec227d32f8621c9b6697b55d216bce0920de30eea37c16bc42a3a684d71bdb49051c68d850f1f74b0ef",
+    "cand24": "6df529bb42037774fe5fa700b5c06b6a24aeae86c1a586cf7212858ce67817f3dc214ed395ef0322305a273d26aff4f5f555453fe76b6209f7d26c7ea32dbee0",
+    "cand26": "60e6dfc869b6da84d4a5401033585e930e727b96ce9daa7fd4e02ec5ae962c452d6530cc96c815e288b1afebc67cf699bac4ccb9eeda35f67863bf793b37d989",
+    "detalhe24": "0a3c52451647d57f7d79786934ad0bf764e9f79d84cf224c363a81808f908b81574981993ba3334fe32cf078df0c3efd1b5c7122826982b9d18b67c0c1a19cec",
+    "detalhe26": "39e01de54f3fe52df8707c0786cfb2926ae728c625abfc305d66f59b8a33ccc7d9c53e0a2aa707589085a5dbf06ec8c6bd3247e74bfddcc7c300e7398b748d58",
+    "locais24": "0552a559e6bb86027d5cd4cf0b24447122a24adaa187dc7324f079ff4a8aee48e71bd6462163a95b25e52f99d969bd0209192ff46264cc981aeb1d868e8172aa",
+    "locais26": "86847bce0747ce491ef8b2d27a6630598ce92715059103f5e8efa42d2ba433740eb35cd0e58afa34920da5a6fefbfbf43d8fc1da9a6d88d3d2f8f412e3dadd10",
+    "munzona24": "0eb2e22e06019507123f2201b69a230ae2cf2bec03f558f12bc4eb24c554cbd447cb46a3044f5b24acd16c0e1786921dc4d9ce87ff5338de9f40f43c8caeca09",
+    "munzona26": "2588882a3a4a2280b547aee8850f7ba0ed911965b2c10832171c502919ad1b730dd9d9f16f00f49d553cdc75e199643b4ecaafaecf47cad339bd8f93a45d2ce0",
+    "secao24": "d605cf8a67d6df6ed28fd62835cc6f0402a987f92df0570fc292c9f65545e29492cb99802ae3a9c28ad8f7cd9088224f6b7e56f41277abd6746463610a06e92b",
+    "secao26": "139c1815565bfe763f652f76383c0d16138bf66f2f855507ed93de0d33d05ea709f617433c6499e7183d045f16712fda5cec9936be3ce165f7d01d13266ee275",
+    "totaliz24": "2c1ba46e7702620b5f26ebb60481d96ee265628c5964a2ff056e5badae058d39a1dc372f8251a9cf7ac1c4d36b6275110689baacabea522e95e18d94137d7306",
+    "totaliz26": "e3a1f87b0bf877c97b958f6a9e06cdd668cda14eece547bb86425aebc1ed3e7781dffa1fca4702cd78f8f378e33d5f9c497aa8a97b5dad9b7dd0fe6f8cd252ec"
+  },
+  "excecoes_usadas": [
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "key": {
+        "source": "locais",
+        "reason": "SG_UF diferente de TO"
+      },
+      "cause": "Escopo da spec (secao 2): so o Tocantins; o arquivo do TSE e nacional e as linhas de outras UFs ficam fora da base.",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "key": {
+        "source": "munzona",
+        "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+      },
+      "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "key": {
+        "source": "munzona",
+        "reason": "SG_UF diferente de TO"
+      },
+      "cause": "Escopo da spec (secao 2): so o Tocantins; o arquivo do TSE e nacional e as linhas de outras UFs ficam fora da base.",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "key": {
+        "source": "detalhe_munzona",
+        "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+      },
+      "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "key": {
+        "source": "detalhe_munzona",
+        "reason": "SG_UF diferente de TO"
+      },
+      "cause": "Escopo da spec (secao 2): so o Tocantins; o arquivo do TSE e nacional e as linhas de outras UFs ficam fora da base.",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "key": {
+        "source": "votacao_secao",
+        "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+      },
+      "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "1",
+      "check": "exclusoes_registradas",
+      "key": {
+        "source": "candidatos",
+        "reason": "CD_ELEICAO=6286 fora das eleicoes ordinarias de 2024 (suplementar de Goiatins, 25/10/2026)"
+      },
+      "cause": "Ruling R13: eleicao suplementar de Goiatins (CD_ELEICAO 6286, 25/10/2026) nao consta nos BU e esta fora do escopo (eleicoes ordinarias de 2024).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Prefeito",
+        "cd_municipio": "73407",
+        "zona": 5,
+        "nr_votavel": 40,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Prefeito",
+        "cd_municipio": "92681",
+        "zona": 20,
+        "nr_votavel": 20,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73180",
+        "zona": 11,
+        "nr_votavel": 11333,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73199",
+        "zona": 6,
+        "nr_votavel": 43222,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73199",
+        "zona": 6,
+        "nr_votavel": 43333,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73270",
+        "zona": 26,
+        "nr_votavel": 45666,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73350",
+        "zona": 34,
+        "nr_votavel": 12333,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73385",
+        "zona": 13,
+        "nr_votavel": 11110,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73385",
+        "zona": 13,
+        "nr_votavel": 22555,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73385",
+        "zona": 13,
+        "nr_votavel": 44444,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73407",
+        "zona": 5,
+        "nr_votavel": 10777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 40122,
+        "votos_bu": 105,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (112).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 55010,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (112).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 55037,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (112).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 55600,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (112).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 11777,
+        "votos_bu": 6,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (18).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 13456,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (18).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 55123,
+        "votos_bu": 8,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (18).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92410",
+        "zona": 34,
+        "nr_votavel": 11777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92410",
+        "zona": 34,
+        "nr_votavel": 13456,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92410",
+        "zona": 34,
+        "nr_votavel": 55123,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92479",
+        "zona": 22,
+        "nr_votavel": 65234,
+        "votos_bu": 7,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (7).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92525",
+        "zona": 21,
+        "nr_votavel": 44555,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92541",
+        "zona": 21,
+        "nr_votavel": 25555,
+        "votos_bu": 30,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (30).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "92681",
+        "zona": 20,
+        "nr_votavel": 12333,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "93416",
+        "zona": 25,
+        "nr_votavel": 15699,
+        "votos_bu": 190,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (190).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "94633",
+        "zona": 28,
+        "nr_votavel": 11112,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (56).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "94633",
+        "zona": 28,
+        "nr_votavel": 22111,
+        "votos_bu": 52,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (56).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2024,
+        "turno": 1,
+        "cargo": "Vereador",
+        "cd_municipio": "95290",
+        "zona": 16,
+        "nr_votavel": 45555,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73024",
+        "zona": 27,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73059",
+        "zona": 11,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73067",
+        "zona": 10,
+        "nr_votavel": 22777,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73075",
+        "zona": 9,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73083",
+        "zona": 8,
+        "nr_votavel": 55666,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73091",
+        "zona": 32,
+        "nr_votavel": 22777,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73105",
+        "zona": 35,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73180",
+        "zona": 11,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73296",
+        "zona": 10,
+        "nr_votavel": 22777,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 22777,
+        "votos_bu": 11,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (12).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 55666,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (12).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "73512",
+        "zona": 9,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "92193",
+        "zona": 12,
+        "nr_votavel": 22777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 22777,
+        "votos_bu": 9,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (10).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 55666,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (10).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "92436",
+        "zona": 10,
+        "nr_votavel": 22777,
+        "votos_bu": 6,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (6).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "92479",
+        "zona": 22,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "92576",
+        "zona": 11,
+        "nr_votavel": 22777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "92584",
+        "zona": 19,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "93114",
+        "zona": 4,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "93130",
+        "zona": 22,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "93459",
+        "zona": 28,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "93459",
+        "zona": 28,
+        "nr_votavel": 55666,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "93556",
+        "zona": 8,
+        "nr_votavel": 22777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "94617",
+        "zona": 5,
+        "nr_votavel": 22777,
+        "votos_bu": 12,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (12).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "94633",
+        "zona": 28,
+        "nr_votavel": 22777,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "94692",
+        "zona": 3,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "94994",
+        "zona": 35,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "95214",
+        "zona": 18,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "95290",
+        "zona": 16,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "95338",
+        "zona": 32,
+        "nr_votavel": 22777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "95338",
+        "zona": 32,
+        "nr_votavel": 55666,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "95370",
+        "zona": 26,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "96130",
+        "zona": 11,
+        "nr_votavel": 22777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "96270",
+        "zona": 6,
+        "nr_votavel": 22777,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "96431",
+        "zona": 12,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "96598",
+        "zona": 3,
+        "nr_votavel": 22777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "96857",
+        "zona": 21,
+        "nr_votavel": 22777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Estadual",
+        "cd_municipio": "96997",
+        "zona": 28,
+        "nr_votavel": 22777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "73156",
+        "zona": 14,
+        "nr_votavel": 4045,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "73296",
+        "zona": 10,
+        "nr_votavel": 2777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 2777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 4045,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "73512",
+        "zona": 9,
+        "nr_votavel": 2777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "92070",
+        "zona": 19,
+        "nr_votavel": 4045,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 2777,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 4045,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "92410",
+        "zona": 34,
+        "nr_votavel": 2777,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "92452",
+        "zona": 31,
+        "nr_votavel": 2777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "92541",
+        "zona": 21,
+        "nr_votavel": 4045,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "93114",
+        "zona": 4,
+        "nr_votavel": 2777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "93858",
+        "zona": 2,
+        "nr_votavel": 2777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "95192",
+        "zona": 7,
+        "nr_votavel": 4045,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "96270",
+        "zona": 6,
+        "nr_votavel": 2777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Deputado Federal",
+        "cd_municipio": "96997",
+        "zona": 28,
+        "nr_votavel": 2777,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73008",
+        "zona": 7,
+        "nr_votavel": 35,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73016",
+        "zona": 27,
+        "nr_votavel": 35,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73024",
+        "zona": 27,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73032",
+        "zona": 27,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73040",
+        "zona": 27,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73083",
+        "zona": 8,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73091",
+        "zona": 32,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73105",
+        "zona": 35,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73121",
+        "zona": 23,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73180",
+        "zona": 11,
+        "nr_votavel": 35,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73199",
+        "zona": 6,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73245",
+        "zona": 4,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73253",
+        "zona": 4,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73261",
+        "zona": 31,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73270",
+        "zona": 26,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73288",
+        "zona": 10,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73296",
+        "zona": 10,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73300",
+        "zona": 2,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73326",
+        "zona": 34,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73334",
+        "zona": 34,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73342",
+        "zona": 34,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73350",
+        "zona": 34,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73369",
+        "zona": 20,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73377",
+        "zona": 20,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73385",
+        "zona": 13,
+        "nr_votavel": 35,
+        "votos_bu": 8,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (8).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73393",
+        "zona": 18,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73407",
+        "zona": 5,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73423",
+        "zona": 21,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 35,
+        "votos_bu": 370,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (370).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73482",
+        "zona": 19,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73504",
+        "zona": 14,
+        "nr_votavel": 35,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73512",
+        "zona": 9,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73539",
+        "zona": 9,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73580",
+        "zona": 31,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "73598",
+        "zona": 3,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92070",
+        "zona": 19,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92088",
+        "zona": 28,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92134",
+        "zona": 14,
+        "nr_votavel": 35,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92142",
+        "zona": 22,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92185",
+        "zona": 7,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92193",
+        "zona": 12,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92240",
+        "zona": 16,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92304",
+        "zona": 7,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92371",
+        "zona": 28,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92398",
+        "zona": 14,
+        "nr_votavel": 35,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 35,
+        "votos_bu": 218,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (218).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92410",
+        "zona": 34,
+        "nr_votavel": 35,
+        "votos_bu": 20,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (20).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92436",
+        "zona": 10,
+        "nr_votavel": 35,
+        "votos_bu": 8,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (8).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92452",
+        "zona": 31,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92479",
+        "zona": 22,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92533",
+        "zona": 17,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92541",
+        "zona": 21,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92576",
+        "zona": 11,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92592",
+        "zona": 8,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92606",
+        "zona": 35,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "92681",
+        "zona": 20,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93114",
+        "zona": 4,
+        "nr_votavel": 35,
+        "votos_bu": 34,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (34).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93211",
+        "zona": 16,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93238",
+        "zona": 13,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93416",
+        "zona": 25,
+        "nr_votavel": 35,
+        "votos_bu": 7,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (7).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93475",
+        "zona": 15,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93556",
+        "zona": 8,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93653",
+        "zona": 15,
+        "nr_votavel": 35,
+        "votos_bu": 6,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (6).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "93858",
+        "zona": 2,
+        "nr_votavel": 35,
+        "votos_bu": 57,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (57).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "94099",
+        "zona": 11,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "94617",
+        "zona": 5,
+        "nr_votavel": 35,
+        "votos_bu": 10,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (10).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "94633",
+        "zona": 28,
+        "nr_votavel": 35,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "94692",
+        "zona": 3,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "94811",
+        "zona": 19,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "94838",
+        "zona": 9,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "94994",
+        "zona": 35,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "95192",
+        "zona": 7,
+        "nr_votavel": 35,
+        "votos_bu": 41,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (41).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "95214",
+        "zona": 18,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "95257",
+        "zona": 23,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "95273",
+        "zona": 20,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "95338",
+        "zona": 32,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "95532",
+        "zona": 26,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "95591",
+        "zona": 3,
+        "nr_votavel": 35,
+        "votos_bu": 44,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (44).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96032",
+        "zona": 21,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96130",
+        "zona": 11,
+        "nr_votavel": 35,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96156",
+        "zona": 17,
+        "nr_votavel": 35,
+        "votos_bu": 8,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (8).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96199",
+        "zona": 5,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96210",
+        "zona": 9,
+        "nr_votavel": 35,
+        "votos_bu": 8,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (8).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96270",
+        "zona": 6,
+        "nr_votavel": 35,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96431",
+        "zona": 12,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96490",
+        "zona": 18,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96598",
+        "zona": 3,
+        "nr_votavel": 35,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96636",
+        "zona": 31,
+        "nr_votavel": 35,
+        "votos_bu": 8,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (8).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96652",
+        "zona": 27,
+        "nr_votavel": 35,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96679",
+        "zona": 14,
+        "nr_votavel": 35,
+        "votos_bu": 5,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (5).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96857",
+        "zona": 21,
+        "nr_votavel": 35,
+        "votos_bu": 6,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (6).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96970",
+        "zona": 35,
+        "nr_votavel": 35,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Governador",
+        "cd_municipio": "96997",
+        "zona": 28,
+        "nr_votavel": 35,
+        "votos_bu": 3,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (3).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "73318",
+        "zona": 12,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "73385",
+        "zona": 13,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "73407",
+        "zona": 5,
+        "nr_votavel": 28,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "73440",
+        "zona": 29,
+        "nr_votavel": 28,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "92304",
+        "zona": 7,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "92371",
+        "zona": 28,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "92398",
+        "zona": 14,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "92410",
+        "zona": 1,
+        "nr_votavel": 28,
+        "votos_bu": 2,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "92410",
+        "zona": 34,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "93114",
+        "zona": 4,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "93858",
+        "zona": 2,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "95273",
+        "zona": 20,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "95370",
+        "zona": 26,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "95478",
+        "zona": 13,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "96156",
+        "zona": 17,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "96210",
+        "zona": 9,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "96270",
+        "zona": 6,
+        "nr_votavel": 28,
+        "votos_bu": 4,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (4).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "96431",
+        "zona": 12,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "96679",
+        "zona": 14,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "bu_vs_munzona_nominal",
+      "key": {
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "cd_municipio": "96857",
+        "zona": 21,
+        "nr_votavel": 28,
+        "votos_bu": 1,
+        "votos_ref": 0
+      },
+      "cause": "[camada3-auto] Nulo tecnico: voto nominal da urna para candidato com candidatura indeferida/cancelada; o munzona nao lista o candidato. Soma da zona = QT_VOTOS_NULOS_TECNICOS do detalhe bruto (1).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "cobertura_fontes",
+      "key": {
+        "fonte": "votacao_secao",
+        "ano": 2026,
+        "turno": 1,
+        "cargo": "Presidente",
+        "lado": "so_bu"
+      },
+      "cause": "[camada3-auto] votacao_secao do TSE nao publica Presidente (so cargos estaduais); Presidente por secao vem so do BU (docs/fontes.md secao 2, item 2).",
+      "approved_on": "2026-11-10"
+    },
+    {
+      "layer": "3",
+      "check": "cobertura_fontes",
+      "key": {
+        "fonte": "votacao_secao",
+        "ano": 2026,
+        "turno": 2,
+        "cargo": "Presidente",
+        "lado": "so_bu"
+      },
+      "cause": "[camada3-auto] votacao_secao do TSE nao publica Presidente (so cargos estaduais); Presidente por secao vem so do BU (docs/fontes.md secao 2, item 2).",
+      "approved_on": "2026-11-10"
+    }
+  ],
+  "excecoes_nao_usadas": [],
+  "fora_do_controle": [
+    "2024 turno 2",
+    "2026 turno 2"
+  ]
+}
