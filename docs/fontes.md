@@ -151,6 +151,14 @@ T2 = 6258 e 6260 (2026-10-25). Chave da secao: `CD_MUNICIPIO`, `NR_ZONA`, `NR_SE
 Cargo x tipo: Legenda so aparece em Vereador (2024) e Deputado Federal/Estadual (2026); Presidente, Governador,
 Senador e Prefeito so tem Nominal, Branco e Nulo.
 
+**Mapeamento para `tipo_votavel` (base `bu_secao.parquet`, Task 3)**: constante `TIPO_VOTAVEL_MAP` em
+`tocantins/normalize.py`, chaveada pelo par `(CD_TIPO_VOTAVEL, DS_TIPO_VOTAVEL)` reais:
+`(1, Nominal) -> Nominal`, `(2, Branco) -> Branco`, `(3, Nulo) -> Nulo`, `(4, Legenda) -> Legenda`. O vocabulario da
+base e `Nominal | Legenda | Branco | Nulo | Anulado`; `Anulado` nao e produzido por nenhum codigo do BU (so aparece na
+totalizacao). Qualquer par fora da tabela (ou codigo e descricao inconsistentes) faz `normalize_bu` levantar
+`ValueError`; nada passa em silencio. Na base, `-1`/`-3`/`#NULO#`/`#NULO`/`#NE` viram nulo em todas as colunas
+exceto `votos`; `cd_eleicao`, `cd_tipo_urna` e todas as linhas sao preservados (733.076 linhas = soma dos 4 CSV).
+
 **`CD_TIPO_URNA` / `DS_TIPO_URNA`**: um unico valor em todos os 4 arquivos, `1` = `Apurada`: `bu24_t1` 270.223 linhas
 (4.171 secoes), `bu24_t2` 2.495 (629), `bu26_t1` 426.458 (4.384), `bu26_t2` 33.900 (4.384). Nao ha urnas de outro tipo
 nestes arquivos. Outros campos: `DS_SECOES_AGREGADAS` e `#NULO#` em quase todas as linhas (preenchido em 9.096 de
