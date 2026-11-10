@@ -61,3 +61,17 @@ def test_fetch_without_sha_url_records_computed_hash(fake_tse, tmp_path):
     assert entry["published_sha512"] is None
     assert entry["sha512"] == sha512_file(raw / "arquivo.zip")
     assert "/arquivo.zip.sha512" not in fake_tse.hits
+
+
+def test_parse_sha512_text_raises_clear_error_on_empty_or_garbled_body():
+    for body in ("", "   \n", "<html>404 Not Found</html>", "xyz  file.zip"):
+        with pytest.raises(ValueError, match="sha512"):
+            parse_sha512_text(body)
+
+
+def test_fetch_compares_hashes_case_insensitively(fake_tse, tmp_path):
+    fake_tse.sha_text = fake_tse.sha_text.upper()
+    raw, manifest = tmp_path / "raw", tmp_path / "manifesto.json"
+    entry = fetch(make_source(fake_tse), raw, manifest)
+    assert entry["sha512"] == sha512_file(raw / "arquivo.zip")
+    assert entry["published_sha512"] == entry["sha512"]

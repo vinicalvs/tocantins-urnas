@@ -25,8 +25,20 @@ def sha512_file(path: Path) -> str:
     return h.hexdigest()
 
 
+_HEX = set("0123456789abcdefABCDEF")
+
+
 def parse_sha512_text(text: str) -> str:
-    return text.split()[0]
+    """Extrai o hash (primeiro token hexadecimal) de um arquivo .sha512, em minusculas."""
+    tokens = text.split()
+    if not tokens:
+        raise ValueError("corpo do .sha512 vazio: nenhum hash sha512 encontrado")
+    token = tokens[0]
+    if not set(token) <= _HEX:
+        raise ValueError(
+            f"corpo do .sha512 mal formado: primeiro token nao e hexadecimal ({token[:40]!r})"
+        )
+    return token.lower()
 
 
 def _load_manifest(manifest_path: Path) -> dict:
@@ -78,7 +90,7 @@ def fetch(source: Source, raw_dir: Path, manifest_path: Path) -> dict:
         # Arquivo existente sem registro: registra sem baixar de novo.
         digest = sha512_file(final)
         published = _published_hash(source)
-        if published is not None and published != digest:
+        if published is not None and published.lower() != digest.lower():
             raise HashMismatch(f"{source.key}: {digest} != publicado {published}")
         entry = _entry(source, final, digest, published, _now())
         manifest[source.key] = entry
@@ -96,7 +108,7 @@ def fetch(source: Source, raw_dir: Path, manifest_path: Path) -> dict:
                     f.write(chunk)
                     h.update(chunk)
         digest = h.hexdigest()
-        if published is not None and published != digest:
+        if published is not None and published.lower() != digest.lower():
             raise HashMismatch(f"{source.key}: {digest} != publicado {published}")
         os.replace(part, final)
     except BaseException:
