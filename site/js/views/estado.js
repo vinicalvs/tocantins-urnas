@@ -36,7 +36,7 @@ function partyTable(est, cargo, mode) {
   for (const c of est.candidatos) if (c.eleito) eleitos[c.partido] = (eleitos[c.partido] || 0) + 1;
   const validos = est.totais.validos || 1;
   const max = Math.max(...est.partidos.map((p) => p.total), 1);
-  const winLabel = MAJORITARIOS.has(cargo) ? 'Prefeituras' : 'Mais votado em';
+  const winLabel = cargo === 'prefeito' ? 'Prefeituras' : 'Mais votado em';
   const rows = est.partidos.slice(0, 25).map((p) => `<tr>
       <td><div class="who">${swatch(p.sg, mode)}<span class="name">${escapeHtml(p.sg)}</span></div></td>
       <td class="num">${fmtInt(wins[p.sg] || 0)}</td>
@@ -81,13 +81,13 @@ function legend(est, cargo, mode) {
   return `<ul class="legend" aria-label="Legenda do mapa">${items.join('')}</ul>`;
 }
 
-function municipalTable(est, index, cargo) {
+function municipalTable(est, index, cargo, eKey) {
   const nome = Object.fromEntries(index.municipios.map((m) => [m.cod, m.nome]));
   const rows = [...est.municipios].sort((a, b) => nome[a.cod].localeCompare(nome[b.cod], 'pt-BR')).map((m) => {
     const v = MAJORITARIOS.has(cargo) ? m.vencedor : null;
     const who = v ? `${escapeHtml(v.nome)} (${escapeHtml(v.partido)}) · ${fmtPct(v.pct_validos)}`
       : `${escapeHtml(m.partido_mais_votado?.sg || '–')} · ${fmtInt(m.partido_mais_votado?.total || 0)} votos`;
-    return `<tr><td><a href="#/municipio/${escapeHtml(m.cod)}">${escapeHtml(nome[m.cod])}</a></td><td>${who}</td></tr>`;
+    return `<tr><td><a href="#/municipio/${escapeHtml(m.cod)}?e=${escapeHtml(eKey)}">${escapeHtml(nome[m.cod])}</a></td><td>${who}</td></tr>`;
   }).join('');
   const head = MAJORITARIOS.has(cargo) ? 'Vencedor' : 'Partido mais votado';
   return `<details><summary>Ver como tabela (${est.municipios.length} municípios)</summary><div class="table-wrap"><table>
@@ -104,6 +104,7 @@ export async function render(app, route, stale) {
   const byIbge = Object.fromEntries(index.municipios.map((m) => [m.ibge, m]));
   const byCod = Object.fromEntries(est.municipios.map((m) => [m.cod, m]));
   const majoritario = MAJORITARIOS.has(sel.cargo);
+  const porPrefeitura = sel.cargo === 'prefeito'; // candidatos so existem por municipio
   const opts = options.map((o) => `<option value="${electionKey(o)}"${electionKey(o) === electionKey(sel) ? ' selected' : ''}>`
     + `${escapeHtml(electionLabel(o))}</option>`).join('');
 
@@ -118,12 +119,11 @@ export async function render(app, route, stale) {
       <section class="card" aria-labelledby="t-mapa"><h2 id="t-mapa">Mapa dos municípios</h2>
         <div id="mapa" class="map" role="img" aria-label="Mapa do Tocantins colorido por partido; a mesma informação está na tabela abaixo do mapa."></div>
         ${legend(est, sel.cargo, mode)}
-        ${municipalTable(est, index, sel.cargo)}
+        ${municipalTable(est, index, sel.cargo, electionKey(sel))}
       </section>
-      <section class="card">${majoritario ? '' : candidateTable(est, mode, sel)}
-        ${majoritario ? partyTable(est, sel.cargo, mode) : ''}</section>
+      <section class="card">${porPrefeitura ? partyTable(est, sel.cargo, mode) : candidateTable(est, mode, sel)}</section>
     </div>
-    ${majoritario ? '' : `<section class="card">${partyTable(est, sel.cargo, mode)}</section>`}`;
+    ${porPrefeitura ? '' : `<section class="card">${partyTable(est, sel.cargo, mode)}</section>`}`;
 
   app.querySelector('#eleicao').addEventListener('change', (ev) => {
     location.hash = `#/estado?e=${ev.target.value}`;
@@ -151,7 +151,7 @@ export async function render(app, route, stale) {
     },
     onClick: (f) => {
       const m = byIbge[f.properties.codarea];
-      if (m) location.hash = `#/municipio/${m.cod}`;
+      if (m) location.hash = `#/municipio/${m.cod}?e=${electionKey(sel)}`;
     },
   });
 }

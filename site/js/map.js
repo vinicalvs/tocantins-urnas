@@ -10,9 +10,28 @@ export function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
+// A roda rola a pagina; Ctrl + roda (ou pinça) da zoom; o botao "Ver tudo" volta ao enquadramento inicial.
 export function createMap(el, { tiles = false } = {}) {
   const L = globalThis.L;
   const map = L.map(el, { zoomSnap: 0.25, scrollWheelZoom: false });
+  el.addEventListener('wheel', (ev) => {
+    if (!ev.ctrlKey) return;
+    ev.preventDefault();
+    if (ev.deltaY < 0) map.zoomIn(0.5); else map.zoomOut(0.5);
+  }, { passive: false });
+  const VerTudo = L.Control.extend({
+    options: { position: 'topleft' },
+    onAdd() {
+      const b = L.DomUtil.create('button', 'leaflet-bar ver-tudo');
+      b.type = 'button';
+      b.textContent = 'Ver tudo';
+      b.title = 'Voltar ao enquadramento inicial';
+      L.DomEvent.disableClickPropagation(b);
+      L.DomEvent.on(b, 'click', () => { if (map.inicial) map.fitBounds(map.inicial.bounds, map.inicial.opts); });
+      return b;
+    },
+  });
+  new VerTudo().addTo(map);
   if (tiles) {
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -33,7 +52,8 @@ export function choropleth(map, geojson, { fill, tooltip, onClick, surface }) {
       if (onClick) lyr.on('click', () => onClick(f));
     },
   }).addTo(map);
-  map.fitBounds(layer.getBounds(), { padding: [8, 8] });
+  map.inicial = { bounds: layer.getBounds(), opts: { padding: [8, 8] } };
+  map.fitBounds(map.inicial.bounds, map.inicial.opts);
   return layer;
 }
 
@@ -50,10 +70,13 @@ export function circleLayer(map, markers, { color, tooltip, radius, surface, onC
   const group = L.featureGroup(markers.map((m) => {
     const c = L.circleMarker([m.lat, m.lon], {
       radius: radius ? radius(m) : 8, fillColor: color(m), fillOpacity: 0.9, color: surface, weight: 2,
-    }).bindTooltip(tooltip(m));
+    }).bindTooltip(tooltip(m), { direction: 'top' });
     if (onClick) c.on('click', () => onClick(m));
     return c;
   })).addTo(map);
-  if (markers.length) map.fitBounds(group.getBounds(), { padding: [24, 24], maxZoom: 15 });
+  if (markers.length) {
+    map.inicial = { bounds: group.getBounds(), opts: { padding: [24, 24], maxZoom: 15 } };
+    map.fitBounds(map.inicial.bounds, map.inicial.opts);
+  }
   return group;
 }

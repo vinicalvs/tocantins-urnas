@@ -36,3 +36,6 @@ export const loadSelo = () => load('selo_validacao.json');
 export const loadMalha = () => load('malha_to.geojson');
 export const loadMunicipio = (cod, ano, cargo, turno) => load(municipioPath(cod, ano, cargo, turno));
 export const loadEstado = (ano, cargo, turno) => load(estadoPath(ano, cargo, turno));
+export const loadFicha = (cod) => load(`${cod}/locais_ficha.json`);
+export const loadIbge = (cod) => load(`${cod}/ibge.json`);
+export const loadConjuntura = (nome) => load(`conjuntura/${nome}.json`);
