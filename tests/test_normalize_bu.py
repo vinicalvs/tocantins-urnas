@@ -155,3 +155,41 @@ def test_to_utf8_decodes_latin1_once_across_blocks(tmp_path):
     src.write_bytes(text.encode("latin-1"))
     dst = to_utf8(src, tmp_path / "d.csv", block_size=1000)
     assert dst.read_bytes().decode("utf-8") == text
+
+
+def _no_leftovers(base_dir):
+    return [p.name for p in base_dir.iterdir() if p.name.endswith(".tmp") or p.name.startswith(".utf8_")]
+
+
+def test_failed_rerun_keeps_previous_outputs_and_leaves_no_tmp(bu_csv, tmp_path, monkeypatch):
+    import tocantins.normalize as nz
+
+    n, out = run([bu_csv], tmp_path)
+    exc = out.parent / "exclusoes.json"
+    good_parquet, good_exc = out.read_bytes(), exc.read_bytes()
+
+    # falha no meio da regravacao, depois de o Parquet novo ja ter sido escrito
+    def boom(*a, **k):
+        raise OSError("disco cheio")
+
+    monkeypatch.setattr(nz, "_write_exclusoes", boom)
+    other = write_bu_csv(tmp_path / "outro.csv", [bu_row(QT_VOTOS="99")])
+    with pytest.raises(OSError):
+        normalize_bu([other], out)
+    assert out.read_bytes() == good_parquet
+    assert exc.read_bytes() == good_exc
+    assert _no_leftovers(out.parent) == []
+
+    # falha antes de qualquer escrita (tipo_votavel desconhecido)
+    monkeypatch.undo()
+    bad = write_bu_csv(tmp_path / "ruim.csv", [bu_row(CD_TIPO_VOTAVEL="9", DS_TIPO_VOTAVEL="X")])
+    with pytest.raises(ValueError):
+        normalize_bu([bad], out)
+    assert out.read_bytes() == good_parquet
+    assert _no_leftovers(out.parent) == []
+
+
+def test_successful_write_leaves_both_outputs_and_no_tmp(bu_csv, tmp_path):
+    n, out = run([bu_csv], tmp_path)
+    assert out.exists() and (out.parent / "exclusoes.json").exists()
+    assert _no_leftovers(out.parent) == []

@@ -7,6 +7,7 @@ so entao o DuckDB le o texto (`all_varchar=true`). Nunca pandas no arquivo todo.
 import codecs
 import csv
 import json
+import os
 import tempfile
 from pathlib import Path
 
@@ -94,70 +95,81 @@ def normalize_bu(csv_files: list[Path], out_parquet: Path) -> int:
     out_parquet = Path(out_parquet)
     out_parquet.parent.mkdir(parents=True, exist_ok=True)
 
-    with tempfile.TemporaryDirectory(dir=out_parquet.parent, prefix=".utf8_") as tmp:
-        utf8_files = []
-        for i, src in enumerate(csv_files):
-            dst = to_utf8(src, Path(tmp) / f"{i}.csv")
-            _check_header(dst, src)
-            utf8_files.append(str(dst))
+    exclusoes = out_parquet.parent / "exclusoes.json"
+    tmp_parquet = out_parquet.with_name(out_parquet.name + ".tmp")
+    tmp_exclusoes = exclusoes.with_name(exclusoes.name + ".tmp")
+    try:
+        with tempfile.TemporaryDirectory(prefix="tocantins_utf8_") as tmp:
+            utf8_files = []
+            for i, src in enumerate(csv_files):
+                dst = to_utf8(src, Path(tmp) / f"{i}.csv")
+                _check_header(dst, src)
+                utf8_files.append(str(dst))
 
-        con = duckdb.connect()
-        try:
-            lista = "[" + ", ".join("'" + f.replace("'", "''") + "'" for f in utf8_files) + "]"
-            con.execute(
-                f"CREATE VIEW raw AS SELECT * FROM read_csv({lista}, delim=';', quote='\"', "
-                "escape='\"', header=true, all_varchar=true)"
-            )
-            n_in = con.execute("SELECT count(*) FROM raw").fetchone()[0]
-
-            pares = ", ".join(f"('{c}', '{d}')" for c, d in TIPO_VOTAVEL_MAP)
-            desconhecidos = con.execute(
-                "SELECT DISTINCT CD_TIPO_VOTAVEL, DS_TIPO_VOTAVEL FROM raw "
-                f"WHERE (CD_TIPO_VOTAVEL, DS_TIPO_VOTAVEL) NOT IN ({pares}) "
-                "OR CD_TIPO_VOTAVEL IS NULL OR DS_TIPO_VOTAVEL IS NULL"
-            ).fetchall()
-            if desconhecidos:
-                raise ValueError(
-                    "CD/DS_TIPO_VOTAVEL sem mapeamento em TIPO_VOTAVEL_MAP: "
-                    + ", ".join(f"({c!r}, {d!r})" for c, d in desconhecidos)
+            con = duckdb.connect()
+            try:
+                lista = "[" + ", ".join("'" + f.replace("'", "''") + "'" for f in utf8_files) + "]"
+                con.execute(
+                    f"CREATE VIEW raw AS SELECT * FROM read_csv({lista}, delim=';', quote='\"', "
+                    "escape='\"', header=true, all_varchar=true)"
                 )
-            case = " ".join(
-                f"WHEN CD_TIPO_VOTAVEL = '{c}' AND DS_TIPO_VOTAVEL = '{d}' THEN '{v}'"
-                for (c, d), v in TIPO_VOTAVEL_MAP.items()
-            )
+                n_in = con.execute("SELECT count(*) FROM raw").fetchone()[0]
 
-            select = f"""
-                SELECT
-                    CAST(ANO_ELEICAO AS INTEGER)            AS ano,
-                    CAST(NR_TURNO AS INTEGER)               AS turno,
-                    CAST(CD_ELEICAO AS INTEGER)             AS cd_eleicao,
-                    CAST(CD_CARGO_PERGUNTA AS INTEGER)      AS cd_cargo,
-                    {_clean('DS_CARGO_PERGUNTA')}           AS cargo,
-                    {_clean('CD_MUNICIPIO')}                AS cd_municipio,
-                    {_clean('NM_MUNICIPIO')}                AS nm_municipio,
-                    CAST(NR_ZONA AS INTEGER)                AS zona,
-                    CAST(NR_SECAO AS INTEGER)               AS secao,
-                    {_int('NR_LOCAL_VOTACAO')}              AS "local",
-                    CAST(QT_APTOS AS INTEGER)               AS aptos,
-                    CAST(QT_COMPARECIMENTO AS INTEGER)      AS comparecimento,
-                    CAST(QT_ABSTENCOES AS INTEGER)          AS abstencoes,
-                    CAST(CD_TIPO_URNA AS INTEGER)           AS cd_tipo_urna,
-                    CASE {case} END                         AS tipo_votavel,
-                    {_int('NR_VOTAVEL')}                    AS nr_votavel,
-                    {_clean('NM_VOTAVEL')}                  AS nm_votavel,
-                    {_int('NR_PARTIDO')}                    AS nr_partido,
-                    {_clean('SG_PARTIDO')}                  AS sg_partido,
-                    CAST(QT_VOTOS AS INTEGER)               AS votos,
-                    {_clean('DS_SECOES_AGREGADAS')}         AS secoes_agregadas
-                FROM raw
-            """
-            con.sql(select).write_parquet(str(out_parquet), compression="zstd")
-            n_out = con.execute("SELECT count(*) FROM read_parquet(?)", [str(out_parquet)]).fetchone()[0]
-        finally:
-            con.close()
+                pares = ", ".join(f"('{c}', '{d}')" for c, d in TIPO_VOTAVEL_MAP)
+                desconhecidos = con.execute(
+                    "SELECT DISTINCT CD_TIPO_VOTAVEL, DS_TIPO_VOTAVEL FROM raw "
+                    f"WHERE (CD_TIPO_VOTAVEL, DS_TIPO_VOTAVEL) NOT IN ({pares}) "
+                    "OR CD_TIPO_VOTAVEL IS NULL OR DS_TIPO_VOTAVEL IS NULL"
+                ).fetchall()
+                if desconhecidos:
+                    raise ValueError(
+                        "CD/DS_TIPO_VOTAVEL sem mapeamento em TIPO_VOTAVEL_MAP: "
+                        + ", ".join(f"({c!r}, {d!r})" for c, d in desconhecidos)
+                    )
+                case = " ".join(
+                    f"WHEN CD_TIPO_VOTAVEL = '{c}' AND DS_TIPO_VOTAVEL = '{d}' THEN '{v}'"
+                    for (c, d), v in TIPO_VOTAVEL_MAP.items()
+                )
 
-    if n_out != n_in:
-        out_parquet.unlink(missing_ok=True)
-        raise RuntimeError(f"BU: {n_in} linhas lidas, {n_out} gravadas (nada deveria ser removido)")
-    _write_exclusoes(out_parquet.parent / "exclusoes.json", [])
-    return n_out
+                select = f"""
+                    SELECT
+                        CAST(ANO_ELEICAO AS INTEGER)            AS ano,
+                        CAST(NR_TURNO AS INTEGER)               AS turno,
+                        CAST(CD_ELEICAO AS INTEGER)             AS cd_eleicao,
+                        CAST(CD_CARGO_PERGUNTA AS INTEGER)      AS cd_cargo,
+                        {_clean('DS_CARGO_PERGUNTA')}           AS cargo,
+                        {_clean('CD_MUNICIPIO')}                AS cd_municipio,
+                        {_clean('NM_MUNICIPIO')}                AS nm_municipio,
+                        CAST(NR_ZONA AS INTEGER)                AS zona,
+                        CAST(NR_SECAO AS INTEGER)               AS secao,
+                        {_int('NR_LOCAL_VOTACAO')}              AS "local",
+                        CAST(QT_APTOS AS INTEGER)               AS aptos,
+                        CAST(QT_COMPARECIMENTO AS INTEGER)      AS comparecimento,
+                        CAST(QT_ABSTENCOES AS INTEGER)          AS abstencoes,
+                        CAST(CD_TIPO_URNA AS INTEGER)           AS cd_tipo_urna,
+                        CASE {case} END                         AS tipo_votavel,
+                        {_int('NR_VOTAVEL')}                    AS nr_votavel,
+                        {_clean('NM_VOTAVEL')}                  AS nm_votavel,
+                        {_int('NR_PARTIDO')}                    AS nr_partido,
+                        {_clean('SG_PARTIDO')}                  AS sg_partido,
+                        CAST(QT_VOTOS AS INTEGER)               AS votos,
+                        {_clean('DS_SECOES_AGREGADAS')}         AS secoes_agregadas
+                    FROM raw
+                """
+                con.sql(select).write_parquet(str(tmp_parquet), compression="zstd")
+                n_out = con.execute("SELECT count(*) FROM read_parquet(?)", [str(tmp_parquet)]).fetchone()[0]
+            finally:
+                con.close()
+
+        if n_out != n_in:
+            raise RuntimeError(f"BU: {n_in} linhas lidas, {n_out} gravadas (nada deveria ser removido)")
+        _write_exclusoes(tmp_exclusoes, [])
+        # So aqui as saidas anteriores sao substituidas (Parquet primeiro, depois exclusoes.json).
+        os.replace(tmp_parquet, out_parquet)
+        os.replace(tmp_exclusoes, exclusoes)
+        return n_out
+    except BaseException:
+        # Falha em qualquer ponto: saidas anteriores intactas, sem temporarios.
+        tmp_parquet.unlink(missing_ok=True)
+        tmp_exclusoes.unlink(missing_ok=True)
+        raise
